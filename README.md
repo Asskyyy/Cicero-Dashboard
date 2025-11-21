@@ -1,146 +1,119 @@
-﻿# 🏫 Cicero Dashboard — 本地開發環境搭建指南
+﻿# **Cicero Dashboard — Local Development Setup Guide**
 
-本文件說明如何從 **零開始** 在 Windows 上建立並運行 Cicero Dashboard（基於 Next.js + PostgreSQL + Prisma + Auth.js + Resend）。
+Cicero Dashboard is a full-stack school management platform built with **Next.js 14**, **PostgreSQL**, **Prisma ORM**, **Auth.js (NextAuth v5)**, and **Resend** for email-based authentication.
 
-此 README 適用於：
-
-- 初次安裝開發環境
-- 想在本地完整測試 Login、Dashboard、資料庫
-- 未部署前的本地測試流程
+This document provides a complete step-by-step guide for setting up the project from scratch on a local Windows environment.
 
 ---
 
-# 📌 1. 系統需求
+# 1. **System Requirements**
 
 - Windows 10 / 11
-- Node.js LTS（建議 v18+ / v20+）
-- Git for Windows
-- PostgreSQL（版本 16 或 17）
-- VSCode（非必要但建議）
+- **Node.js LTS** (v18+ or v20 recommended)
+- **npm** (comes with Node.js)
+- **Git** for cloning
+- **PostgreSQL 16/17** + pgAdmin
+- VSCode (recommended)
 
 ---
 
-# 📦 2. 安裝 Node.js 與 Git
+# 2. **Clone the Repository**
 
-### 查看 Node 是否已安裝
+Choose a development folder, e.g.:
 
-```bash
-node -v
-npm -v
+```
+F:\Develop\GitHub\
 ```
 
-如未安裝 → 到官方 [https://nodejs.org/en/](https://nodejs.org/en/) 下載 LTS。
-
-### 查看 Git
+Clone the repository:
 
 ```bash
-git --version
+git clone <your-repo-url>
+cd <repo-folder>
 ```
 
-未有則到 [https://git-scm.com/](https://git-scm.com/) 安裝。
-
----
-
-# 📂 3. Clone Cicero Dashboard 專案
-
-選擇安裝目錄，例如：`F:\Develop\GitHub\`
-
-```bash
-git clone <你的 Repo URL>
-```
-
-或原 template：
-
-```bash
-git clone https://github.com/zxmodren/Nextjs-SchoolManagementSystem-Template.git
-```
-
-進入資料夾：
-
-```bash
-cd ubiquitous-octo-potato
-```
-
----
-
-# 📦 4. 安裝依賴
+Install dependencies:
 
 ```bash
 npm install
 ```
 
-如出現 vulnerabilities 屬正常，暫時可忽略。
+---
+
+# 3. **Install PostgreSQL + pgAdmin**
+
+Download the official EDB installer:
+
+[https://www.postgresql.org/download/windows/](https://www.postgresql.org/download/windows/)
+
+During installation:
+
+1. Select **PostgreSQL Server** and **pgAdmin 4**
+2. Set a **superuser password** (remember this)
+3. Use default port: **5432**
+4. Ignore Stack Builder when it appears after installation
 
 ---
 
-# 🗄️ 5. 安裝 PostgreSQL + pgAdmin
+# 4. **Create the Local Database**
 
-1. 到官方 [https://www.postgresql.org/download/windows/](https://www.postgresql.org/download/windows/)
-2. 下載 **EDB Installer**
-3. 安裝期間會要求：
+Open **pgAdmin 4** → Connect using your postgres password.
 
-   - Components：**PostgreSQL Server + pgAdmin**
-   - 設置 superuser 密碼（記住！）
-   - Port：5432（預設）
+Create database:
 
-4. 安裝完成後會自動開啟 Stack Builder（可直接關閉）
-
----
-
-# 🗄️ 6. 建立本地資料庫 nextjs_sms
-
-打開 **pgAdmin 4**：
-
-1. 展開 Servers → PostgreSQL → Databases
-2. 右鍵 → Create → Database
-3. 輸入名稱：
+1. Expand **Servers → PostgreSQL XX → Databases**
+2. Right-click → **Create → Database**
+3. Enter:
 
 ```
 nextjs_sms
 ```
 
-儲存。
+Save.
 
 ---
 
-# 🔑 7. 設定 `.env`（非常重要）
+# 5. **Environment Variables (.env)**
 
-於專案根目錄建立 `.env`：
+Create `.env` in the project root:
 
 ```env
-DATABASE_URL="postgresql://postgres:你的密碼@localhost:5432/nextjs_sms?schema=public"
-DIRECT_URL="postgresql://postgres:你的密碼@localhost:5432/nextjs_sms?schema=public"
+DATABASE_URL="postgresql://postgres:YOUR_PASSWORD@localhost:5432/nextjs_sms?schema=public"
+DIRECT_URL="postgresql://postgres:YOUR_PASSWORD@localhost:5432/nextjs_sms?schema=public"
 
-AUTH_SECRET="任意64字元隨機字串"
-NEXTAUTH_SECRET="同AUTH_SECRET"
+AUTH_SECRET="your-64-char-random-string"
+NEXTAUTH_SECRET="your-64-char-random-string"
 AUTH_TRUST_HOST="true"
 
-# Resend（Email 功能）
-RESEND_API_KEY="re_xxxxxxx"   # 可用 onboarding key 或正式 key
+RESEND_API_KEY="re_xxxxxxxxxxxxxx"
 NEXT_PUBLIC_APP_URL="http://localhost:3000"
 ```
 
-⚠ 必須重啟後才會生效：
+To generate a random secret:
 
 ```bash
-npm run dev
+node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"
 ```
+
+**Important:** Restart dev server after modifying `.env`.
 
 ---
 
-# 🧬 8. 產生 Prisma Client + 建表
+# 6. **Initialize the Database Schema**
+
+Run Prisma migrations:
 
 ```bash
 npx prisma migrate dev --name init
 ```
 
-成功會顯示：
+You should see:
 
 ```
 Your database is now in sync with your schema.
 ```
 
-如需查看資料庫：
+To inspect the database in a GUI:
 
 ```bash
 npx prisma studio
@@ -148,185 +121,205 @@ npx prisma studio
 
 ---
 
-# 👤 9. 建立 Admin 初始帳戶（手動建立）
+# 7. **Create an Admin User (Required Before Login)**
 
-開啟 Prisma Studio：
+Open Prisma Studio:
 
 ```bash
 npx prisma studio
 ```
 
-進入 **User** 表，新增記錄：
+Go to **User** table → Add Record:
 
-| 欄位               | 值                                            |
+| Field              | Value                                         |
 | ------------------ | --------------------------------------------- |
 | name               | Admin                                         |
 | email              | [admin@example.com](mailto:admin@example.com) |
-| password           | bcrypt hash（下方教你產生）                   |
+| password           | bcrypt hash (see below)                       |
 | role               | ADMIN                                         |
-| gender             | UNKNOW                                        |
 | status             | ACTIVE                                        |
+| gender             | UNKNOW                                        |
 | isTwoFactorEnabled | false                                         |
 
-### 生成 bcrypt 密碼：
-
-先安裝：
+Generate a bcrypt password:
 
 ```bash
 npm install bcryptjs
-```
-
-再生成 hash：
-
-```bash
 node -e "console.log(require('bcryptjs').hashSync('YourPassword123', 10))"
 ```
 
-把輸出填入 `password`。
+Paste the output into the `password` field.
 
-儲存即可。
-
----
-
-# 📧 10. Email 驗證設定（Resend）
-
-系統登入需要寄 email（2FA / verification）。
-
-你有兩個選項：
+Save.
 
 ---
 
-## 選項 A — 使用 Resend Sandbox（最快）
+# 8. **Configure Email (Resend)**
 
-把 `mail.ts` 內的寄件人改成：
+Cicero Dashboard uses Resend for:
+
+- Email verification
+- Two-factor codes
+- Login confirmation
+
+You have two options:
+
+---
+
+## **Option A — Fastest (Recommended for Local Development)**
+
+Use Resend sandbox senders — no domain verification required.
+
+Modify `lib/mail.ts`:
 
 ```ts
 from: "Cicero <onboarding@resend.dev>",
 ```
 
-或：
+OR:
 
 ```ts
 from: "Cicero <delivered@resend.dev>",
 ```
 
-**此模式無需驗證域名即可寄出 email。**
-
 ---
 
-## 選項 B — 使用正式 Domain
+## **Option B — Production Setup**
 
-如果你想用：
+If you want to use:
 
 ```
 noreply@yourdomain.com
 ```
 
-你必須去 Resend → Domains 添加 domain，並在 DNS 加入 TXT/MX 記錄完成驗證。
+You **must verify the domain** in Resend:
 
-未驗證的話 Resend 會回傳：
+1. Go to [https://resend.com/domains](https://resend.com/domains)
+2. Add your domain (e.g., `ixuapps.online`)
+3. Add the DNS records (TXT/MX/CNAME)
+4. Wait for verification
+5. Use your custom sender address
+
+If domain is not verified, Resend will return:
 
 ```
-The domain is not verified.
+"The <domain> is not verified."
 ```
 
 ---
 
-# 🔐 11. 登入流程
+# 9. **Run the Development Server**
 
-啟動本地伺服器：
+Start the app:
 
 ```bash
 npm run dev
 ```
 
-打開：
+Open in browser:
 
 ```
-http://localhost:3000/auth/login
+http://localhost:3000
 ```
 
-輸入：
+Log in with:
 
 - Email: `admin@example.com`
-- 密碼：你剛才設定嘅明碼
+- Password: your chosen password
 
-若 email 驗證成功，你會收到寄送的 confirmation link。
-點擊後會進入 Dashboard。
-
----
-
-# 🧹 12. 常見錯誤與解決
-
-### ❌ P1013: Invalid database string
-
-- `.env` 裏面的 `DATABASE_URL` 格式錯
-- 密碼含特殊符號需要 URL encode
-- `.env` 有 BOM（另存為 UTF-8 無 BOM）
+You should now access the **Cicero Dashboard**.
 
 ---
 
-### ❌ P1012: Must provide a nonempty direct URL
+# 10. **Common Errors & Fixes**
 
-- `schema.prisma` 使用了：
+### ❌ **P1013: Invalid database string**
+
+- `.env` contains BOM or invalid characters
+- Wrong password
+- Missing `?schema=public`
+- Password contains special characters → URL encode required
+  (`@` → `%40`, `!` → `%21`, etc.)
+
+---
+
+### ❌ **P1012: directUrl is empty**
+
+Your schema has:
 
 ```prisma
 directUrl = env("DIRECT_URL")
 ```
 
-→ `.env` 必須提供 `DIRECT_URL`（可與 `DATABASE_URL` 相同）。
+So `.env` **must** include a non-empty `DIRECT_URL`.
 
 ---
 
-### ❌ Missing API key / Resend throw error
+### ❌ **Missing API Key (Resend)**
 
-- `.env` 的 `RESEND_API_KEY` 空白
-- 你使用未驗證 domain 作 sender
-- 用 `onboarding@resend.dev` 可以避過
+Add:
 
----
+```env
+RESEND_API_KEY="re_xxxxx"
+```
 
-### ❌ Token does not exist
-
-- 你重複 login 令 token 被覆蓋
-- server restart 令 token 失效
-- email 未成功寫入 DB
-
-**重新登入一次即可。**
+Restart server.
 
 ---
 
-### ❌ UntrustedHost / MissingSecret
+### ❌ **Domain not verified**
 
-加入：
+Switch to:
+
+```ts
+from: 'Cicero <onboarding@resend.dev>';
+```
+
+---
+
+### ❌ **Token does not exist**
+
+Email verification token expired or overwritten by new login attempt.
+
+Solution: Login again and use the latest email link.
+
+---
+
+### ❌ **UntrustedHost / MissingSecret**
+
+Add:
 
 ```env
 AUTH_SECRET="xxxx"
 AUTH_TRUST_HOST="true"
 ```
 
-即可。
+---
+
+# 11. **Project Technologies**
+
+- **Next.js 14 / React Server Components**
+- **Prisma ORM**
+- **PostgreSQL**
+- **Auth.js (NextAuth v5)**
+- **Resend Email API**
+- **TailwindCSS**
+- **TypeScript**
 
 ---
 
-# 🎉 13. 完成！你已成功啟動 Cicero Dashboard
+# 12. **Summary**
 
-達成項目：
+This README covers:
 
-✔ 成功 Clone + Install
-✔ PostgreSQL + pgAdmin 建立資料庫
-✔ `.env` 正確設定
-✔ Prisma 建表
-✔ 建立 Admin
-✔ 修正 Resend 錯誤
-✔ 成功登入 Dashboard
+✔ Environment setup
+✔ PostgreSQL installation
+✔ Database creation
+✔ Prisma migration
+✔ Admin user creation
+✔ Email verification options
+✔ Authentication configuration
+✔ Full login flow
+✔ All major troubleshooting cases
 
----
-
-# 📌 最後提示
-
-本 README 已足夠讓任何新開發者：
-
-- 從零建立完整本地環境
-- 成功登入 Cicero Dashboard
-- 使用 DB、Email login、Prisma
+With this setup, you can now fully operate **Cicero Dashboard** locally and continue development smoothly.
