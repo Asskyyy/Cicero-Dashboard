@@ -1,9 +1,9 @@
-"use client";
-import axios from "axios";
-import { useState, SyntheticEvent } from "react";
-import { useRouter } from "next/navigation";
-import { Lessons, Classrooms } from "@prisma/client";
-import { useToast } from "@/components/ui/use-toast";
+'use client';
+import axios from 'axios';
+import { useState, SyntheticEvent } from 'react';
+import { useRouter } from 'next/navigation';
+import { Lessons, Classrooms } from '@prisma/client';
+import { useToast } from '@/components/ui/use-toast';
 
 type Schedule = {
   id: string;
@@ -22,19 +22,17 @@ const Edt = ({ schedule, lessons, classrooms }: EdtProps) => {
   const { toast } = useToast();
   const [isLoading, setIsLoading] = useState(false);
   const [showModal, setShowModal] = useState(false);
-  const [day, setDay] = useState(
-    schedule.day.toISOString().split("T")[0] || ""
-  );
-  const [time, setTime] = useState(schedule.time || "");
-  const [lessonId, setLesson] = useState(schedule.lessonId || "");
-  const [classId, setClass] = useState(schedule.classId || "");
+  const [day, setDay] = useState(schedule.day.toISOString().split('T')[0] || '');
+  const [time, setTime] = useState(schedule.time || '');
+  const [lessonId, setLesson] = useState(schedule.lessonId || '');
+  const [classId, setClass] = useState(schedule.classId || '');
   const router = useRouter();
   const handleUpdate = async (e: SyntheticEvent) => {
     e.preventDefault();
     setIsLoading(true);
     try {
       if (
-        day === schedule.day.toISOString().split("T")[0] &&
+        day === schedule.day.toISOString().split('T')[0] &&
         time === schedule.time &&
         classId === schedule.classId &&
         lessonId === schedule.lessonId
@@ -50,18 +48,18 @@ const Edt = ({ schedule, lessons, classrooms }: EdtProps) => {
         classId: classId,
       });
       toast({
-        description: "Schedule Edit successfully",
+        description: 'Schedule Edit successfully',
       });
     } catch (error: any) {
-      let errorMessage = "An error occurred";
+      let errorMessage = 'An error occurred';
       if (error.response && error.response.data && error.response.data.error) {
         errorMessage = error.response.data.error;
       }
       toast({
-        variant: "destructive",
-        title: "Uh oh! Something went wrong.",
+        variant: 'destructive',
+        title: 'Uh oh! Something went wrong.',
         description: errorMessage,
-        className: "bg-red text-white",
+        className: 'bg-red text-white',
       });
     }
     setIsLoading(false);
@@ -70,11 +68,7 @@ const Edt = ({ schedule, lessons, classrooms }: EdtProps) => {
   };
   return (
     <>
-      <button
-        className="btnEdt"
-        type="button"
-        onClick={() => setShowModal(true)}
-      >
+      <button className="btnEdt" type="button" onClick={() => setShowModal(true)}>
         Edit
       </button>
       {showModal ? (
@@ -168,11 +162,7 @@ const Edt = ({ schedule, lessons, classrooms }: EdtProps) => {
                 </div>
                 {/*footer*/}
                 <div className="flex items-center justify-end p-6 border-t border-solid border-blueGray-200 rounded-b">
-                  <button
-                    className="btnClose"
-                    type="button"
-                    onClick={() => setShowModal(false)}
-                  >
+                  <button className="btnClose" type="button" onClick={() => setShowModal(false)}>
                     Close
                   </button>
                   <button
@@ -181,7 +171,7 @@ const Edt = ({ schedule, lessons, classrooms }: EdtProps) => {
                     onClick={handleUpdate}
                     disabled={isLoading}
                   >
-                    {isLoading ? "Loading..." : "Save Changes"}
+                    {isLoading ? 'Loading...' : 'Save Changes'}
                   </button>
                 </div>
               </div>

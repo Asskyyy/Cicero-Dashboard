@@ -1,12 +1,12 @@
-"use client";
-import axios from "axios";
-import { useState, SyntheticEvent } from "react";
-import { useRouter } from "next/navigation";
-import { Lessons, Classrooms } from "@prisma/client";
-import { storage } from "@/lib/firebase";
-import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
-import { deleteFileOnZodError } from "@/actions/deleteFile";
-import { useToast } from "@/components/ui/use-toast";
+'use client';
+import axios from 'axios';
+import { useState, SyntheticEvent } from 'react';
+import { useRouter } from 'next/navigation';
+import { Lessons, Classrooms } from '@prisma/client';
+import { storage } from '@/lib/firebase';
+import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
+import { deleteFileOnZodError } from '@/actions/deleteFile';
+import { useToast } from '@/components/ui/use-toast';
 interface AdProps {
   lessons: Lessons[];
   classrooms: Classrooms[];
@@ -14,13 +14,13 @@ interface AdProps {
 const Ad = ({ lessons, classrooms }: AdProps) => {
   const { toast } = useToast();
   const [showModal, setShowModal] = useState(false);
-  const [deadline, setDeadline] = useState("");
-  const [teacherId, setTeacherId] = useState("");
-  const [time, setTime] = useState("");
+  const [deadline, setDeadline] = useState('');
+  const [teacherId, setTeacherId] = useState('');
+  const [time, setTime] = useState('');
   const [file, setFile] = useState<File>();
-  const [task, setTask] = useState("");
-  const [lesson, setLesson] = useState("");
-  const [classroom, setClassroom] = useState("");
+  const [task, setTask] = useState('');
+  const [lesson, setLesson] = useState('');
+  const [classroom, setClassroom] = useState('');
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
   const handleSelectedFile = (files: any) => {
@@ -29,9 +29,9 @@ const Ad = ({ lessons, classrooms }: AdProps) => {
       console.log(files[0]);
     } else {
       toast({
-        variant: "destructive",
-        title: "Uh oh! Something went wrong.",
-        description: "File Too BIG",
+        variant: 'destructive',
+        title: 'Uh oh! Something went wrong.',
+        description: 'File Too BIG',
       });
     }
   };
@@ -40,19 +40,11 @@ const Ad = ({ lessons, classrooms }: AdProps) => {
     setIsLoading(true);
     e.preventDefault();
 
-    if (
-      !file ||
-      !deadline ||
-      !time ||
-      !lesson ||
-      !teacherId ||
-      !classroom ||
-      !task
-    ) {
+    if (!file || !deadline || !time || !lesson || !teacherId || !classroom || !task) {
       toast({
-        variant: "destructive",
-        title: "Uh oh! Something went wrong.",
-        description: "Please fill in all fields and select a file",
+        variant: 'destructive',
+        title: 'Uh oh! Something went wrong.',
+        description: 'Please fill in all fields and select a file',
       });
       setIsLoading(false);
       return;
@@ -66,26 +58,25 @@ const Ad = ({ lessons, classrooms }: AdProps) => {
 
       downloadURL = await new Promise((resolve, reject) => {
         uploadTask.on(
-          "state_changed",
+          'state_changed',
           (snapshot) => {
-            const progress =
-              (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-            console.log("Upload is " + progress + "% done");
+            const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+            console.log('Upload is ' + progress + '% done');
             switch (snapshot.state) {
-              case "paused":
-                console.log("Upload is paused");
+              case 'paused':
+                console.log('Upload is paused');
                 break;
-              case "running":
-                console.log("Upload is running");
+              case 'running':
+                console.log('Upload is running');
                 break;
             }
           },
           (error) => {
-            console.error("Upload failed:", error);
+            console.error('Upload failed:', error);
             reject(error);
           },
           async () => {
-            console.log("Upload complete");
+            console.log('Upload complete');
             const url = await getDownloadURL(uploadTask.snapshot.ref);
             resolve(url);
           }
@@ -103,41 +94,37 @@ const Ad = ({ lessons, classrooms }: AdProps) => {
         file: downloadURL, // Gunakan downloadURL yang telah diperoleh dari Firebase
       });
       toast({
-        title: "Assignment Add successfully",
+        title: 'Assignment Add successfully',
         description: `Assignment : ${response.data.task}`,
       });
     } catch (error: any) {
-      let errorMessage = "An error occurred";
+      let errorMessage = 'An error occurred';
       if (error.response && error.response.data && error.response.data.error) {
         errorMessage = error.response.data.error;
       }
       toast({
-        variant: "destructive",
-        title: "Uh oh! Something went wrong.",
+        variant: 'destructive',
+        title: 'Uh oh! Something went wrong.',
         description: errorMessage,
-        className: "bg-red text-white",
+        className: 'bg-red text-white',
       });
       await deleteFileOnZodError(downloadURL);
       return;
     } finally {
       setIsLoading(false);
       setShowModal(false);
-      setDeadline("");
-      setTime("");
-      setLesson("");
-      setTask("");
-      setClassroom("");
+      setDeadline('');
+      setTime('');
+      setLesson('');
+      setTask('');
+      setClassroom('');
       router.refresh();
     }
   };
 
   return (
     <>
-      <button
-        className="btnAdd"
-        type="button"
-        onClick={() => setShowModal(true)}
-      >
+      <button className="btnAdd" type="button" onClick={() => setShowModal(true)}>
         Add
       </button>
       {showModal ? (
@@ -182,9 +169,7 @@ const Ad = ({ lessons, classrooms }: AdProps) => {
                       className="border border-gray-300 rounded-md p-2 w-full text-black"
                       value={lesson}
                       onChange={(e) => {
-                        const selectedLesson = lessons.find(
-                          (l) => l.id === e.target.value
-                        );
+                        const selectedLesson = lessons.find((l) => l.id === e.target.value);
                         if (selectedLesson) {
                           setLesson(selectedLesson.id);
                           setTeacherId(selectedLesson.teacherId);
@@ -262,19 +247,13 @@ const Ad = ({ lessons, classrooms }: AdProps) => {
                       type="file"
                       className="border border-gray-300 rounded-md bg-white p-2 w-full text-black"
                       placeholder="select file"
-                      onChange={(files) =>
-                        handleSelectedFile(files.target.files)
-                      }
+                      onChange={(files) => handleSelectedFile(files.target.files)}
                     />
                   </form>
                 </div>
                 {/*footer*/}
                 <div className="flex items-center justify-end p-6 border-t border-solid border-blueGray-200 rounded-b">
-                  <button
-                    className="btnClose"
-                    type="button"
-                    onClick={() => setShowModal(false)}
-                  >
+                  <button className="btnClose" type="button" onClick={() => setShowModal(false)}>
                     Close
                   </button>
                   <button
@@ -283,7 +262,7 @@ const Ad = ({ lessons, classrooms }: AdProps) => {
                     onClick={handleUploadAndAdd}
                     disabled={isLoading}
                   >
-                    {isLoading ? "Loading..." : "Save Changes"}
+                    {isLoading ? 'Loading...' : 'Save Changes'}
                   </button>
                 </div>
               </div>

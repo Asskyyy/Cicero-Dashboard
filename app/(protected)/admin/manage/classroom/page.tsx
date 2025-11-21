@@ -1,8 +1,8 @@
-import React from "react";
-import { TbheadClassroom } from "@/components/TbClassroom/head";
-import TbodyClassroom from "@/components/TbClassroom/body";
-import Ad from "@/components/TbClassroom/btn/ad";
-import { PageProps } from "@/types/pagination";
+import React from 'react';
+import { TbheadClassroom } from '@/components/TbClassroom/head';
+import TbodyClassroom from '@/components/TbClassroom/body';
+import Ad from '@/components/TbClassroom/btn/ad';
+import { PageProps } from '@/types/pagination';
 const ClassroomList = async (props: PageProps) => {
   return (
     <div>

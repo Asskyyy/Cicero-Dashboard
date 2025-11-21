@@ -1,9 +1,9 @@
-import React from "react";
-import { TbheadAssignment } from "@/components/TbAssignmentTeacher/head";
-import TbodyAssignment from "@/components/TbAssignmentTeacher/body";
-import Ad from "@/components/TbAssignmentTeacher/btn/ad";
-import { getAllClassrooms } from "@/data/academy";
-import { getLessonbyTeacherId } from "@/data/teacher";
+import React from 'react';
+import { TbheadAssignment } from '@/components/TbAssignmentTeacher/head';
+import TbodyAssignment from '@/components/TbAssignmentTeacher/body';
+import Ad from '@/components/TbAssignmentTeacher/btn/ad';
+import { getAllClassrooms } from '@/data/academy';
+import { getLessonbyTeacherId } from '@/data/teacher';
 const UserList = async () => {
   const [classrooms] = await Promise.all([getAllClassrooms()]);
   const { data } = await getLessonbyTeacherId();

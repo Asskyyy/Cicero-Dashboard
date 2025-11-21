@@ -1,4 +1,4 @@
-import { db } from "@/lib/db";
+import { db } from '@/lib/db';
 
 export const fetchUsers = async ({
   take = 5,
@@ -9,16 +9,16 @@ export const fetchUsers = async ({
   take: number;
   skip: number;
 }) => {
-  "use server";
+  'use server';
   try {
     const results = await db.user.findMany({
       where: {
-        name: { contains: query, mode: "insensitive" },
+        name: { contains: query, mode: 'insensitive' },
         NOT: {
-          role: "ADMIN",
+          role: 'ADMIN',
         },
       },
-      relationLoadStrategy: "join",
+      relationLoadStrategy: 'join',
       skip,
       take,
       select: {
@@ -29,7 +29,7 @@ export const fetchUsers = async ({
         status: true,
       },
       orderBy: {
-        name: "asc",
+        name: 'asc',
       },
     });
 

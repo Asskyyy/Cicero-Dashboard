@@ -1,10 +1,10 @@
-import { db } from "@/lib/db";
+import { db } from '@/lib/db';
 
 export const fetchClassrooms = async ({ take = 5, skip = 0 }) => {
-  "use server";
+  'use server';
   try {
     const results = await db.classrooms.findMany({
-      relationLoadStrategy: "join",
+      relationLoadStrategy: 'join',
       skip,
       take,
       select: {
@@ -13,7 +13,7 @@ export const fetchClassrooms = async ({ take = 5, skip = 0 }) => {
         cap: true,
       },
       orderBy: {
-        name: "asc",
+        name: 'asc',
       },
     });
 
@@ -31,11 +31,7 @@ export const fetchClassrooms = async ({ take = 5, skip = 0 }) => {
   }
 };
 
-export const getTotalUsersInClassroom = async ({
-  classroomId,
-}: {
-  classroomId?: string;
-}) => {
+export const getTotalUsersInClassroom = async ({ classroomId }: { classroomId?: string }) => {
   const totalStudent = await db.onClassroom.count({
     where: {
       classroomId: classroomId,

@@ -1,6 +1,6 @@
-import React from "react";
-import { PageProps } from "@/types/pagination";
-import { getLessonbyTeacherId } from "@/data/teacher";
+import React from 'react';
+import { PageProps } from '@/types/pagination';
+import { getLessonbyTeacherId } from '@/data/teacher';
 export type FetcLessonsType = typeof getLessonbyTeacherId;
 const TbodyLessonTeacher = async (props: PageProps) => {
   const pageNumber = Number(props?.searchParams?.page || 1); // Get the page number. Default to 1 if not provided.
@@ -11,14 +11,10 @@ const TbodyLessonTeacher = async (props: PageProps) => {
         {data.map((lesson) => (
           <tr key={lesson.id}>
             <td className="border-b border-[#eee] px-4 py-5 pl-9 dark:border-strokedark xl:pl-11">
-              <h5 className="font-medium text-black dark:text-white">
-                {lesson.name}
-              </h5>
+              <h5 className="font-medium text-black dark:text-white">{lesson.name}</h5>
             </td>
             <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
-              <p className="text-sm  text-black dark:text-white">
-                {lesson.cat}
-              </p>
+              <p className="text-sm  text-black dark:text-white">{lesson.cat}</p>
             </td>
           </tr>
         ))}

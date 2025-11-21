@@ -1,13 +1,13 @@
-"use client";
-import axios from "axios";
-import { useState, SyntheticEvent } from "react";
-import { useRouter } from "next/navigation";
-import { getStorage, ref, deleteObject } from "firebase/storage";
+'use client';
+import axios from 'axios';
+import { useState, SyntheticEvent } from 'react';
+import { useRouter } from 'next/navigation';
+import { getStorage, ref, deleteObject } from 'firebase/storage';
 type Assignment = {
   id: string;
   fileUrl: string | null;
 };
-import { useToast } from "@/components/ui/use-toast";
+import { useToast } from '@/components/ui/use-toast';
 
 const Del = ({ assignment }: { assignment: Assignment }) => {
   const { toast } = useToast();
@@ -24,18 +24,18 @@ const Del = ({ assignment }: { assignment: Assignment }) => {
       }
       await axios.delete(`/api/assignment/${id}`);
       toast({
-        description: "Success Delete Assignment",
+        description: 'Success Delete Assignment',
       });
     } catch (error: any) {
-      let errorMessage = "An error occurred";
+      let errorMessage = 'An error occurred';
       if (error.response && error.response.data && error.response.data.error) {
         errorMessage = error.response.data.error;
       }
       toast({
-        variant: "destructive",
-        title: "Uh oh! Something went wrong.",
+        variant: 'destructive',
+        title: 'Uh oh! Something went wrong.',
         description: errorMessage,
-        className: "bg-red text-white",
+        className: 'bg-red text-white',
       });
     } finally {
       setIsLoading(false);
@@ -46,11 +46,7 @@ const Del = ({ assignment }: { assignment: Assignment }) => {
 
   return (
     <>
-      <button
-        className="btnDelAssignment"
-        type="button"
-        onClick={() => setShowModal(true)}
-      >
+      <button className="btnDelAssignment" type="button" onClick={() => setShowModal(true)}>
         Delete
       </button>
       {showModal ? (
@@ -73,22 +69,16 @@ const Del = ({ assignment }: { assignment: Assignment }) => {
                 </div>
                 {/*footer*/}
                 <div className="flex items-center justify-end p-6 border-t border-solid border-blueGray-200 rounded-b">
-                  <button
-                    className="btnClose"
-                    type="button"
-                    onClick={() => setShowModal(false)}
-                  >
+                  <button className="btnClose" type="button" onClick={() => setShowModal(false)}>
                     Close
                   </button>
                   <button
                     className="btnSave"
                     type="button"
-                    onClick={() =>
-                      handleDelete(assignment.id, assignment.fileUrl)
-                    }
+                    onClick={() => handleDelete(assignment.id, assignment.fileUrl)}
                     disabled={isLoading}
                   >
-                    {isLoading ? "Loading..." : "Save Changes"}
+                    {isLoading ? 'Loading...' : 'Save Changes'}
                   </button>
                 </div>
               </div>

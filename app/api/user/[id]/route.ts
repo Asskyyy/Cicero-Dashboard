@@ -1,37 +1,23 @@
-import { NextResponse } from "next/server";
-import { PrismaClient } from "@prisma/client";
-import { User } from "@prisma/client";
-import { UserRole } from "@prisma/client";
-import { UserStatus } from "@prisma/client";
-import { z } from "zod";
+import { NextResponse } from 'next/server';
+import { PrismaClient } from '@prisma/client';
+import { User } from '@prisma/client';
+import { UserRole } from '@prisma/client';
+import { UserStatus } from '@prisma/client';
+import { z } from 'zod';
 
 const UserSchema = z.object({
-  email: z.string().email({ message: "Invalid email address" }),
-  name: z.string().min(3, { message: "Name Min 3 Character" }),
-  role: z.enum(
-    [UserRole.ADMIN, UserRole.TEACHER, UserRole.STUDENT, UserRole.UNKNOW],
-    {
-      errorMap: () => ({ message: "Select Role" }),
-    }
-  ),
-  status: z.enum(
-    [
-      UserStatus.ACTIVE,
-      UserStatus.IN_ACTIVE,
-      UserStatus.BANNED,
-      UserStatus.UNKNOW,
-    ],
-    {
-      errorMap: () => ({ message: "Select Status" }),
-    }
-  ),
+  email: z.string().email({ message: 'Invalid email address' }),
+  name: z.string().min(3, { message: 'Name Min 3 Character' }),
+  role: z.enum([UserRole.ADMIN, UserRole.TEACHER, UserRole.STUDENT, UserRole.UNKNOW], {
+    errorMap: () => ({ message: 'Select Role' }),
+  }),
+  status: z.enum([UserStatus.ACTIVE, UserStatus.IN_ACTIVE, UserStatus.BANNED, UserStatus.UNKNOW], {
+    errorMap: () => ({ message: 'Select Status' }),
+  }),
 });
 const prisma = new PrismaClient();
 
-export const PATCH = async (
-  request: Request,
-  { params }: { params: { id: string } }
-) => {
+export const PATCH = async (request: Request, { params }: { params: { id: string } }) => {
   try {
     const body: User = await request.json();
     const validatedData = UserSchema.parse(body);
@@ -41,10 +27,7 @@ export const PATCH = async (
         where: { email: validatedData.email },
       });
       if (existingUser && existingUser.id !== params.id) {
-        return NextResponse.json(
-          { error: "Email already exists" },
-          { status: 400 }
-        );
+        return NextResponse.json({ error: 'Email already exists' }, { status: 400 });
       }
     }
 
@@ -118,25 +101,19 @@ export const PATCH = async (
   } catch (error) {
     console.log(error);
     if (error instanceof z.ZodError) {
-      const errorMessage = error.errors.map((err) => err.message).join(", ");
+      const errorMessage = error.errors.map((err) => err.message).join(', ');
       return NextResponse.json({ error: errorMessage }, { status: 400 });
     } else if (error instanceof Error) {
       return NextResponse.json({ error: error.message }, { status: 500 });
     } else {
-      return NextResponse.json(
-        { error: "An unknown error occurred" },
-        { status: 505 }
-      );
+      return NextResponse.json({ error: 'An unknown error occurred' }, { status: 505 });
     }
   } finally {
     await prisma.$disconnect();
   }
 };
 
-export const DELETE = async (
-  request: Request,
-  { params }: { params: { id: string } }
-) => {
+export const DELETE = async (request: Request, { params }: { params: { id: string } }) => {
   const user = await prisma.user.delete({
     where: {
       id: String(params.id),

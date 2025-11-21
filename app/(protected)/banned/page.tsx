@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 const bannedPage = () => {
   return <div>Banned Page</div>;

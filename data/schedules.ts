@@ -1,10 +1,10 @@
-import { db } from "@/lib/db";
+import { db } from '@/lib/db';
 
 export const fetchSchedules = async ({ take = 5, skip = 0 }) => {
-  "use server";
+  'use server';
   try {
     const results = await db.schedule.findMany({
-      relationLoadStrategy: "join",
+      relationLoadStrategy: 'join',
       skip,
       take,
       select: {
@@ -30,7 +30,7 @@ export const fetchSchedules = async ({ take = 5, skip = 0 }) => {
         },
       },
       orderBy: {
-        day: "asc",
+        day: 'asc',
       },
     });
 

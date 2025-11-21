@@ -1,9 +1,9 @@
-import React from "react";
-import Edt from "./btn/edt";
-import Del from "./btn/del";
-import { PageProps } from "@/types/pagination";
-import Pagination from "../pagination/pagination";
-import { fetchClassrooms, getTotalUsersInClassroom } from "@/data/classrooms";
+import React from 'react';
+import Edt from './btn/edt';
+import Del from './btn/del';
+import { PageProps } from '@/types/pagination';
+import Pagination from '../pagination/pagination';
+import { fetchClassrooms, getTotalUsersInClassroom } from '@/data/classrooms';
 export type FetcStudentsType = typeof fetchClassrooms;
 const TbodyClassroom = async (props: PageProps) => {
   const pageNumber = Number(props?.searchParams?.page || 1); // Get the page number. Default to 1 if not provided.
@@ -24,14 +24,10 @@ const TbodyClassroom = async (props: PageProps) => {
         {data.map((classroom) => (
           <tr key={classroom.id}>
             <td className="border-b border-[#eee] px-4 py-5 pl-9 dark:border-strokedark xl:pl-11">
-              <h5 className="font-medium text-black dark:text-white">
-                {classroom.name}
-              </h5>
+              <h5 className="font-medium text-black dark:text-white">{classroom.name}</h5>
             </td>
             <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
-              <p className="text-sm  text-black dark:text-white ml-5">
-                {classroom.cap}
-              </p>
+              <p className="text-sm  text-black dark:text-white ml-5">{classroom.cap}</p>
             </td>
             <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
               <p className="text-sm text-black dark:text-white ml-12">

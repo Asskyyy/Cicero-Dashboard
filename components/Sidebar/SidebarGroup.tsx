@@ -1,10 +1,10 @@
-import { useSideBarToggle } from "@/hooks/sidebar-toggle";
-import { SideNavItemGroup } from "@/types/sidebar";
-import React from "react";
-import { SidebarItems } from "./SidebarItems";
-import classNames from "classnames";
-import { useCurrentRole } from "@/hooks/use-current-role";
-import { useCurrentStatus } from "@/hooks/use-current-status";
+import { useSideBarToggle } from '@/hooks/sidebar-toggle';
+import { SideNavItemGroup } from '@/types/sidebar';
+import React from 'react';
+import { SidebarItems } from './SidebarItems';
+import classNames from 'classnames';
+import { useCurrentRole } from '@/hooks/use-current-role';
+import { useCurrentStatus } from '@/hooks/use-current-status';
 
 const SideBarMenuGroup = ({ menuGroup }: { menuGroup: SideNavItemGroup }) => {
   const role = useCurrentRole();
@@ -12,9 +12,9 @@ const SideBarMenuGroup = ({ menuGroup }: { menuGroup: SideNavItemGroup }) => {
   const { toggleCollapse } = useSideBarToggle();
 
   const menuGroupTitleSyle = classNames(
-    "ml-4 text-sm font-semibold text-white dark:text-bodydark2",
+    'ml-4 text-sm font-semibold text-white dark:text-bodydark2',
     {
-      "text-center": toggleCollapse,
+      'text-center': toggleCollapse,
     }
   );
 
@@ -26,9 +26,7 @@ const SideBarMenuGroup = ({ menuGroup }: { menuGroup: SideNavItemGroup }) => {
   }
   return (
     <>
-      <h3 className={menuGroupTitleSyle}>
-        {!toggleCollapse ? menuGroup.title : "..."}
-      </h3>
+      <h3 className={menuGroupTitleSyle}>{!toggleCollapse ? menuGroup.title : '...'}</h3>
       {menuGroup.menuList?.map((item, index) => {
         return <SidebarItems key={index} item={item} />;
       })}

@@ -1,10 +1,10 @@
-"use client";
-import axios from "axios";
-import { useState, SyntheticEvent } from "react";
-import { useRouter } from "next/navigation";
-import { LessonCategory } from "@prisma/client";
-import { Teachers } from "@prisma/client";
-import { useToast } from "@/components/ui/use-toast";
+'use client';
+import axios from 'axios';
+import { useState, SyntheticEvent } from 'react';
+import { useRouter } from 'next/navigation';
+import { LessonCategory } from '@prisma/client';
+import { Teachers } from '@prisma/client';
+import { useToast } from '@/components/ui/use-toast';
 type Lesson = {
   id: string;
   cat: LessonCategory;
@@ -18,20 +18,16 @@ interface EdtProps {
 const Edt = ({ lesson, teachers }: EdtProps) => {
   const { toast } = useToast();
   const [showModal, setShowModal] = useState(false);
-  const [name, setName] = useState(lesson.name || "");
+  const [name, setName] = useState(lesson.name || '');
   const [cat, setCat] = useState<LessonCategory>(lesson.cat);
-  const [teacherId, setTeacher] = useState(lesson.teacherId || "");
+  const [teacherId, setTeacher] = useState(lesson.teacherId || '');
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
   const handleUpdate = async (e: SyntheticEvent) => {
     e.preventDefault();
     setIsLoading(true);
     try {
-      if (
-        name === lesson.name &&
-        cat === lesson.cat &&
-        teacherId === lesson.teacherId
-      ) {
+      if (name === lesson.name && cat === lesson.cat && teacherId === lesson.teacherId) {
         setIsLoading(false);
         setShowModal(false);
         return;
@@ -42,19 +38,19 @@ const Edt = ({ lesson, teachers }: EdtProps) => {
         teacherId: teacherId,
       });
       toast({
-        title: "Lesson Edit successfully",
+        title: 'Lesson Edit successfully',
         description: `Lesson : ${response.data.name}`,
       });
     } catch (error: any) {
-      let errorMessage = "An error occurred";
+      let errorMessage = 'An error occurred';
       if (error.response && error.response.data && error.response.data.error) {
         errorMessage = error.response.data.error;
       }
       toast({
-        variant: "destructive",
-        title: "Uh oh! Something went wrong.",
+        variant: 'destructive',
+        title: 'Uh oh! Something went wrong.',
         description: errorMessage,
-        className: "bg-red text-white",
+        className: 'bg-red text-white',
       });
     }
     setIsLoading(false);
@@ -63,11 +59,7 @@ const Edt = ({ lesson, teachers }: EdtProps) => {
   };
   return (
     <>
-      <button
-        className="btnEdt"
-        type="button"
-        onClick={() => setShowModal(true)}
-      >
+      <button className="btnEdt" type="button" onClick={() => setShowModal(true)}>
         Edit
       </button>
       {showModal ? (
@@ -116,9 +108,7 @@ const Edt = ({ lesson, teachers }: EdtProps) => {
                         Select Category of Lesson
                       </option>
                       <option value={LessonCategory.ART}>Art</option>
-                      <option value={LessonCategory.LANGUANGES}>
-                        Languanges
-                      </option>
+                      <option value={LessonCategory.LANGUANGES}>Languanges</option>
                       <option value={LessonCategory.SCIENCE}>Science</option>
                     </select>
                     <label
@@ -133,7 +123,7 @@ const Edt = ({ lesson, teachers }: EdtProps) => {
                       className="border border-gray-300 rounded-md p-2 w-full text-black"
                       value={teacherId}
                       onChange={(e) => {
-                        console.log("Selected teacher ID:", e.target.value);
+                        console.log('Selected teacher ID:', e.target.value);
                         setTeacher(e.target.value);
                       }}
                     >
@@ -150,11 +140,7 @@ const Edt = ({ lesson, teachers }: EdtProps) => {
                 </div>
                 {/*footer*/}
                 <div className="flex items-center justify-end p-6 border-t border-solid border-blueGray-200 rounded-b">
-                  <button
-                    className="btnClose"
-                    type="button"
-                    onClick={() => setShowModal(false)}
-                  >
+                  <button className="btnClose" type="button" onClick={() => setShowModal(false)}>
                     Close
                   </button>
                   <button
@@ -163,7 +149,7 @@ const Edt = ({ lesson, teachers }: EdtProps) => {
                     onClick={handleUpdate}
                     disabled={isLoading}
                   >
-                    {isLoading ? "Loading..." : "Save Changes"}
+                    {isLoading ? 'Loading...' : 'Save Changes'}
                   </button>
                 </div>
               </div>

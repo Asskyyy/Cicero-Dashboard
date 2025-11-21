@@ -1,10 +1,10 @@
-import { db } from "@/lib/db";
+import { db } from '@/lib/db';
 
 export const fetchAssignment = async ({ take = 5, skip = 0 }) => {
-  "use server";
+  'use server';
   try {
     const results = await db.assignments.findMany({
-      relationLoadStrategy: "join",
+      relationLoadStrategy: 'join',
       skip,
       take,
       select: {
@@ -33,7 +33,7 @@ export const fetchAssignment = async ({ take = 5, skip = 0 }) => {
         },
       },
       orderBy: {
-        task: "asc",
+        task: 'asc',
       },
     });
 
@@ -51,11 +51,7 @@ export const fetchAssignment = async ({ take = 5, skip = 0 }) => {
   }
 };
 
-export const getTeacherByTeacherId = async ({
-  userId,
-}: {
-  userId?: string;
-}) => {
+export const getTeacherByTeacherId = async ({ userId }: { userId?: string }) => {
   const teacher = await db.lessons.findMany({
     where: {
       teacherId: userId,

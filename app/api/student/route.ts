@@ -1,5 +1,5 @@
-import { PrismaClient } from "@prisma/client";
-import { NextResponse } from "next/server";
+import { PrismaClient } from '@prisma/client';
+import { NextResponse } from 'next/server';
 
 const prisma = new PrismaClient();
 
@@ -40,7 +40,7 @@ export const POST = async (request: Request) => {
     await prisma.$disconnect();
     return NextResponse.json(newClassroom, { status: 201 });
   } catch (error: any) {
-    let errorMessage = "An error occurred";
+    let errorMessage = 'An error occurred';
     if (error.message) {
       errorMessage = error.message;
     }

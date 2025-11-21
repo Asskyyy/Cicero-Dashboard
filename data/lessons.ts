@@ -1,10 +1,10 @@
-import { db } from "@/lib/db";
+import { db } from '@/lib/db';
 
 export const fetchLessons = async ({ take = 5, skip = 0 }) => {
-  "use server";
+  'use server';
   try {
     const results = await db.lessons.findMany({
-      relationLoadStrategy: "join",
+      relationLoadStrategy: 'join',
       skip,
       take,
       select: {
@@ -19,7 +19,7 @@ export const fetchLessons = async ({ take = 5, skip = 0 }) => {
         },
       },
       orderBy: {
-        name: "asc",
+        name: 'asc',
       },
     });
 

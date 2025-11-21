@@ -1,4 +1,5 @@
 # Suggested commands
+
 - Check tooling: `node -v`, `npm -v`, `git --version`.
 - Install deps: `npm install` (after clone).
 - Env setup: copy `.env.example` to `.env` and fill `DATABASE_URL`, `DIRECT_URL`, `AUTH_SECRET`, `NEXTAUTH_SECRET`, `RESEND_API_KEY`, `NEXT_PUBLIC_APP_URL`, `AUTH_TRUST_HOST=true`.

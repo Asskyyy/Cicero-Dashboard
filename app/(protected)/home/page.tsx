@@ -1,6 +1,6 @@
-import React from "react";
-import Dashboard from "@/components/Dashboard/Dashboard";
-import { getTotals } from "@/data/card";
+import React from 'react';
+import Dashboard from '@/components/Dashboard/Dashboard';
+import { getTotals } from '@/data/card';
 const Home = async () => {
   const totalDataCard = await getTotals();
 

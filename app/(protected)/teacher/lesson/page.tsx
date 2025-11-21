@@ -1,9 +1,9 @@
-import React from "react";
-import { TbheadLessonteacher } from "@/components/TbLessonTeacher/head";
-import TbodyLessonTeacher from "@/components/TbLessonTeacher/body";
-import Ad from "@/components/TbLesson/btn/ad";
-import { getAllTeachers } from "@/data/academy";
-import { PageProps } from "@/types/pagination";
+import React from 'react';
+import { TbheadLessonteacher } from '@/components/TbLessonTeacher/head';
+import TbodyLessonTeacher from '@/components/TbLessonTeacher/body';
+import Ad from '@/components/TbLesson/btn/ad';
+import { getAllTeachers } from '@/data/academy';
+import { PageProps } from '@/types/pagination';
 const scheduleList = async (props: PageProps) => {
   const [teachers] = await Promise.all([getAllTeachers()]);
   return (

@@ -1,16 +1,16 @@
-"use client";
-import axios from "axios";
-import { useState, SyntheticEvent } from "react";
-import { useRouter } from "next/navigation";
-import { LessonCategory, Teachers } from "@prisma/client";
-import { useToast } from "@/components/ui/use-toast";
+'use client';
+import axios from 'axios';
+import { useState, SyntheticEvent } from 'react';
+import { useRouter } from 'next/navigation';
+import { LessonCategory, Teachers } from '@prisma/client';
+import { useToast } from '@/components/ui/use-toast';
 const Ad = ({ teachers }: { teachers: Teachers[] }) => {
   const { toast } = useToast();
   const [isLoading, setIsLoading] = useState(false);
   const [showModal, setShowModal] = useState(false);
-  const [name, setName] = useState("");
-  const [cat, setCat] = useState("");
-  const [teacher, setTeacher] = useState("");
+  const [name, setName] = useState('');
+  const [cat, setCat] = useState('');
+  const [teacher, setTeacher] = useState('');
   const router = useRouter();
   const handleAdd = async (e: SyntheticEvent) => {
     e.preventDefault();
@@ -22,35 +22,31 @@ const Ad = ({ teachers }: { teachers: Teachers[] }) => {
         teacher: teacher,
       });
       toast({
-        title: "Lesson Add successfully",
+        title: 'Lesson Add successfully',
         description: `Lesson : ${response.data.name}`,
       });
     } catch (error: any) {
-      let errorMessage = "An error occurred";
+      let errorMessage = 'An error occurred';
       if (error.response && error.response.data && error.response.data.error) {
         errorMessage = error.response.data.error;
       }
       toast({
-        variant: "destructive",
-        title: "Uh oh! Something went wrong.",
+        variant: 'destructive',
+        title: 'Uh oh! Something went wrong.',
         description: errorMessage,
-        className: "bg-red text-white",
+        className: 'bg-red text-white',
       });
     }
     setIsLoading(false);
-    setName("");
-    setCat("");
-    setTeacher("");
+    setName('');
+    setCat('');
+    setTeacher('');
     router.refresh();
     setShowModal(false);
   };
   return (
     <>
-      <button
-        className="btnAdd"
-        type="button"
-        onClick={() => setShowModal(true)}
-      >
+      <button className="btnAdd" type="button" onClick={() => setShowModal(true)}>
         Add
       </button>
       {showModal ? (
@@ -61,9 +57,7 @@ const Ad = ({ teachers }: { teachers: Teachers[] }) => {
               <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white dark:border-strokedark dark:bg-boxdark outline-none focus:outline-none">
                 {/*header*/}
                 <div className="flex items-start justify-between p-5 border-b border-solid border-blueGray-200 rounded-t">
-                  <h3 className="text-3xl font-semibold text-black dark:text-white">
-                    Add Lesson
-                  </h3>
+                  <h3 className="text-3xl font-semibold text-black dark:text-white">Add Lesson</h3>
                 </div>
                 {/*body*/}
                 <div className="relative p-6 flex-auto">
@@ -99,9 +93,7 @@ const Ad = ({ teachers }: { teachers: Teachers[] }) => {
                         Select Category of Lesson
                       </option>
                       <option value={LessonCategory.ART}>Art</option>
-                      <option value={LessonCategory.LANGUANGES}>
-                        Languanges
-                      </option>
+                      <option value={LessonCategory.LANGUANGES}>Languanges</option>
                       <option value={LessonCategory.SCIENCE}>Science</option>
                       <option value={LessonCategory.SPORT}>Sport</option>
                     </select>
@@ -117,7 +109,7 @@ const Ad = ({ teachers }: { teachers: Teachers[] }) => {
                       className="border border-gray-300 rounded-md p-2 w-full text-black"
                       value={teacher}
                       onChange={(e) => {
-                        console.log("Selected teacher ID:", e.target.value);
+                        console.log('Selected teacher ID:', e.target.value);
                         setTeacher(e.target.value);
                       }}
                     >
@@ -134,11 +126,7 @@ const Ad = ({ teachers }: { teachers: Teachers[] }) => {
                 </div>
                 {/*footer*/}
                 <div className="flex items-center justify-end p-6 border-t border-solid border-blueGray-200 rounded-b">
-                  <button
-                    className="btnClose"
-                    type="button"
-                    onClick={() => setShowModal(false)}
-                  >
+                  <button className="btnClose" type="button" onClick={() => setShowModal(false)}>
                     Close
                   </button>
                   <button
@@ -147,7 +135,7 @@ const Ad = ({ teachers }: { teachers: Teachers[] }) => {
                     onClick={handleAdd}
                     disabled={isLoading}
                   >
-                    {isLoading ? "Loading..." : "Save Changes"}
+                    {isLoading ? 'Loading...' : 'Save Changes'}
                   </button>
                 </div>
               </div>

@@ -1,4 +1,4 @@
-import { db } from "@/lib/db";
+import { db } from '@/lib/db';
 
 export const getAllClassrooms = async () => {
   try {
@@ -40,7 +40,7 @@ export const getAllTeachers = async () => {
 export const getAllStudents = async () => {
   try {
     const res = await db.students.findMany({
-      relationLoadStrategy: "join",
+      relationLoadStrategy: 'join',
       select: {
         id: true,
         userId: true,
@@ -71,7 +71,7 @@ export const getAllStudents = async () => {
 export const getAllLessons = async () => {
   try {
     const res = await db.lessons.findMany({
-      relationLoadStrategy: "join",
+      relationLoadStrategy: 'join',
       select: {
         id: true,
         name: true,
@@ -92,7 +92,7 @@ export const getAllLessons = async () => {
 export const getAllSchedules = async () => {
   try {
     const res = await db.schedule.findMany({
-      relationLoadStrategy: "join",
+      relationLoadStrategy: 'join',
       select: {
         id: true,
         day: true,
@@ -124,7 +124,7 @@ export const getAllSchedules = async () => {
 export const getAllAssignmets = async () => {
   try {
     const res = await db.assignments.findMany({
-      relationLoadStrategy: "join",
+      relationLoadStrategy: 'join',
       select: {
         id: true,
         deadline: true,

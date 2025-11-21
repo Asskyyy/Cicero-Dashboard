@@ -1,4 +1,4 @@
-import { db } from "@/lib/db";
+import { db } from '@/lib/db';
 
 export const getTotals = async () => {
   const totalClassrooms = await db.classrooms.count();
@@ -10,6 +10,6 @@ export const getTotals = async () => {
     totalClassrooms,
     totalUsers,
     totalLessons,
-    totalAssignments
+    totalAssignments,
   };
 };

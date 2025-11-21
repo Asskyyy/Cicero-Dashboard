@@ -1,4 +1,4 @@
-import { useSession } from "next-auth/react";
+import { useSession } from 'next-auth/react';
 
 export const useCurrentStatus = () => {
   const session = useSession();

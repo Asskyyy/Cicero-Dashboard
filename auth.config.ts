@@ -1,21 +1,21 @@
-import bcrypt from "bcryptjs";
-import type { NextAuthConfig } from "next-auth";
-import Credentials from "next-auth/providers/credentials";
+import bcrypt from 'bcryptjs';
+import type { NextAuthConfig } from 'next-auth';
+import Credentials from 'next-auth/providers/credentials';
 // import Github from "next-auth/providers/github";
 // import Google from "next-auth/providers/google";
-import { db } from "@/lib/db";
-import { LoginSchema } from "@/schemas";
-import { getUserByEmail } from "@/data/user";
-import { UserStatus, UserRole } from "@prisma/client";
-import { PrismaAdapter } from "@auth/prisma-adapter";
-import { getUserById } from "@/data/user";
-import { getTwoFactorConfirmationByUserId } from "@/data/two-factor-confirmation";
-import { getAccountByUserId } from "./data/account";
+import { db } from '@/lib/db';
+import { LoginSchema } from '@/schemas';
+import { getUserByEmail } from '@/data/user';
+import { UserStatus, UserRole } from '@prisma/client';
+import { PrismaAdapter } from '@auth/prisma-adapter';
+import { getUserById } from '@/data/user';
+import { getTwoFactorConfirmationByUserId } from '@/data/two-factor-confirmation';
+import { getAccountByUserId } from './data/account';
 
 export default {
   pages: {
-    signIn: "/auth/login",
-    error: "/auth/error",
+    signIn: '/auth/login',
+    error: '/auth/error',
   },
   events: {
     async linkAccount({ user }) {
@@ -56,7 +56,7 @@ export default {
   callbacks: {
     async signIn({ user, account }) {
       // Allow OAuth without email verification
-      if (account?.provider !== "credentials") return true;
+      if (account?.provider !== 'credentials') return true;
 
       const existingUser = await getUserById(user.id);
 
@@ -64,9 +64,7 @@ export default {
       if (!existingUser?.emailVerified) return false;
 
       if (existingUser.isTwoFactorEnabled) {
-        const twoFactorConfirmation = await getTwoFactorConfirmationByUserId(
-          existingUser.id
-        );
+        const twoFactorConfirmation = await getTwoFactorConfirmationByUserId(existingUser.id);
 
         if (!twoFactorConfirmation) return false;
 
@@ -86,7 +84,7 @@ export default {
       if (token.role && session.user) {
         session.user.role = token.role as UserRole;
       }
-      
+
       if (token.status && session.user) {
         session.user.status = token.status as UserStatus;
       }
@@ -123,5 +121,5 @@ export default {
     },
   },
   adapter: PrismaAdapter(db),
-  session: { strategy: "jwt" },
+  session: { strategy: 'jwt' },
 } satisfies NextAuthConfig;

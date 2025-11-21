@@ -1,9 +1,9 @@
-"use client";
-import axios from "axios";
-import { useState, SyntheticEvent } from "react";
-import { useRouter } from "next/navigation";
-import { Lessons, Classrooms } from "@prisma/client";
-import { useToast } from "@/components/ui/use-toast";
+'use client';
+import axios from 'axios';
+import { useState, SyntheticEvent } from 'react';
+import { useRouter } from 'next/navigation';
+import { Lessons, Classrooms } from '@prisma/client';
+import { useToast } from '@/components/ui/use-toast';
 
 interface AdProps {
   lessons: Lessons[];
@@ -13,10 +13,10 @@ const Ad = ({ lessons, classrooms }: AdProps) => {
   const { toast } = useToast();
   const [isLoading, setIsLoading] = useState(false);
   const [showModal, setShowModal] = useState(false);
-  const [day, setDay] = useState("");
-  const [time, setTime] = useState("");
-  const [lesson, setLesson] = useState("");
-  const [classroom, setClassroom] = useState("");
+  const [day, setDay] = useState('');
+  const [time, setTime] = useState('');
+  const [lesson, setLesson] = useState('');
+  const [classroom, setClassroom] = useState('');
   const router = useRouter();
   const handleAdd = async (e: SyntheticEvent) => {
     setIsLoading(true);
@@ -29,35 +29,31 @@ const Ad = ({ lessons, classrooms }: AdProps) => {
         classroom: classroom,
       });
       toast({
-        description: "Schedule Add successfully",
+        description: 'Schedule Add successfully',
       });
     } catch (error: any) {
-      let errorMessage = "An error occurred";
+      let errorMessage = 'An error occurred';
       if (error.response && error.response.data && error.response.data.error) {
         errorMessage = error.response.data.error;
       }
       toast({
-        variant: "destructive",
-        title: "Uh oh! Something went wrong.",
+        variant: 'destructive',
+        title: 'Uh oh! Something went wrong.',
         description: errorMessage,
-        className: "bg-red text-white",
+        className: 'bg-red text-white',
       });
     }
     setIsLoading(false);
     setShowModal(false);
-    setDay("");
-    setTime("");
-    setLesson("");
-    setClassroom("");
+    setDay('');
+    setTime('');
+    setLesson('');
+    setClassroom('');
     router.refresh();
   };
   return (
     <>
-      <button
-        className="btnAdd"
-        type="button"
-        onClick={() => setShowModal(true)}
-      >
+      <button className="btnAdd" type="button" onClick={() => setShowModal(true)}>
         Add
       </button>
       {showModal ? (
@@ -151,11 +147,7 @@ const Ad = ({ lessons, classrooms }: AdProps) => {
                 </div>
                 {/*footer*/}
                 <div className="flex items-center justify-end p-6 border-t border-solid border-blueGray-200 rounded-b">
-                  <button
-                    className="btnClose"
-                    type="button"
-                    onClick={() => setShowModal(false)}
-                  >
+                  <button className="btnClose" type="button" onClick={() => setShowModal(false)}>
                     Close
                   </button>
                   <button
@@ -164,7 +156,7 @@ const Ad = ({ lessons, classrooms }: AdProps) => {
                     onClick={handleAdd}
                     disabled={isLoading}
                   >
-                    {isLoading ? "Loading..." : "Save Changes"}
+                    {isLoading ? 'Loading...' : 'Save Changes'}
                   </button>
                 </div>
               </div>

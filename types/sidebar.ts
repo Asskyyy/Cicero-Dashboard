@@ -1,5 +1,5 @@
-import { UserRole } from "@prisma/client";
-import { UserStatus } from "@prisma/client";
+import { UserRole } from '@prisma/client';
+import { UserStatus } from '@prisma/client';
 
 export type SideNavItem = {
   allowedRole: UserRole[];

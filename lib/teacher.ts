@@ -1,5 +1,5 @@
-import { DataSchedule } from "@/types/schedule";
-import { DataAssignment } from "@/types/assignment";
+import { DataSchedule } from '@/types/schedule';
+import { DataAssignment } from '@/types/assignment';
 
 export const ScheduleResult = (result: any): DataSchedule[] => {
   let data: DataSchedule[] = [];
@@ -10,7 +10,7 @@ export const ScheduleResult = (result: any): DataSchedule[] => {
     data = [
       {
         id: result.id,
-        name: result.name ?? "",
+        name: result.name ?? '',
         lesson: result.lesson.map((lesson: any) => ({
           name: lesson.name,
           cat: lesson.cat,
@@ -38,7 +38,7 @@ export const AssignmentResult = (result: any): DataAssignment[] => {
     data = [
       {
         id: result.id,
-        name: result.name ?? "",
+        name: result.name ?? '',
         lesson: result.lesson.map((lesson: any) => ({
           name: lesson.name,
           id: lesson.id,
