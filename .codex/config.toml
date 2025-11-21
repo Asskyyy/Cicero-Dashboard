@@ -1,0 +1,30 @@
+windows_wsl_setup_acknowledged = true
+model = "gpt-5.1-codex"
+model_reasoning_effort = "medium"
+
+[mcp_servers.context7]
+command = "C:\\Program Files\\nodejs\\npx.cmd" 
+args = [
+  "-y",
+  "@upstash/context7-mcp@latest",
+  "--api-key",
+  "ctx7sk-14a7cdb5-a8d8-48a9-8f48-ac78d7a8d395"
+]
+env = { SystemRoot="C:\\Windows", APPDATA="C:\\Users\\alexs\\AppData\\Roaming" }
+startup_timeout_ms = 40_000
+
+[mcp_servers.playwright]
+command = "C:\\Program Files\\nodejs\\npx.cmd"
+args = ["@playwright/mcp@latest"]
+
+[mcp_servers.serena]
+command = "uvx"
+args = ["--from", "git+https://github.com/oraios/serena", "serena", "start-mcp-server", "--context", "codex"]
+startup_timeout_sec = 30.0
+
+[mcp_servers.serena.env]
+SystemRoot = 'C:\Windows'
+
+[notice]
+hide_gpt5_1_migration_prompt = true
+
