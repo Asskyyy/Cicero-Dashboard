@@ -7,5 +7,4 @@ export const {
   auth,
   signIn,
   signOut,
-  update,
 } = NextAuth(authConfig);

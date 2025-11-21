@@ -58,7 +58,10 @@ export default {
       // Allow OAuth without email verification
       if (account?.provider !== 'credentials') return true;
 
-      const existingUser = await getUserById(user.id);
+      const userId = user?.id;
+      if (!userId) return false;
+
+      const existingUser = await getUserById(userId);
 
       // Prevent sign in without email verification
       if (!existingUser?.emailVerified) return false;
@@ -77,26 +80,16 @@ export default {
       return true;
     },
     async session({ token, session }) {
-      if (token.sub && session.user) {
-        session.user.id = token.sub;
-      }
-
-      if (token.role && session.user) {
-        session.user.role = token.role as UserRole;
-      }
-
-      if (token.status && session.user) {
-        session.user.status = token.status as UserStatus;
-      }
-
       if (session.user) {
-        session.user.isTwoFactorEnabled = token.isTwoFactorEnabled as boolean;
-      }
-
-      if (session.user) {
-        session.user.name = token.name;
-        session.user.email = token.email;
-        session.user.isOAuth = token.isOAuth as boolean;
+        if (token.sub) session.user.id = token.sub;
+        if (token.role) session.user.role = token.role as UserRole;
+        if (token.status) session.user.status = token.status as UserStatus;
+        if (typeof token.isTwoFactorEnabled !== 'undefined') {
+          session.user.isTwoFactorEnabled = Boolean(token.isTwoFactorEnabled);
+        }
+        if (token.name) session.user.name = token.name;
+        if (token.email) session.user.email = token.email;
+        session.user.isOAuth = Boolean(token.isOAuth);
       }
 
       return session;

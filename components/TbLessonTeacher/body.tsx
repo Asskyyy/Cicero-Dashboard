@@ -3,7 +3,8 @@ import { PageProps } from '@/types/pagination';
 import { getLessonbyTeacherId } from '@/data/teacher';
 export type FetcLessonsType = typeof getLessonbyTeacherId;
 const TbodyLessonTeacher = async (props: PageProps) => {
-  const pageNumber = Number(props?.searchParams?.page || 1); // Get the page number. Default to 1 if not provided.
+  const searchParams = (await props.searchParams) ?? {};
+  const pageNumber = Number(searchParams.page ?? 1); // Get the page number. Default to 1 if not provided.
   const { data } = await getLessonbyTeacherId();
   return (
     <>

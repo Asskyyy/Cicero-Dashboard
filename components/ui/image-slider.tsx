@@ -2,6 +2,7 @@
 import { cn } from '@/lib/utils';
 import { motion, AnimatePresence } from 'framer-motion';
 import React, { useEffect, useState } from 'react';
+const MotionImg = motion.img as unknown as React.ComponentType<any>;
 
 export const ImagesSlider = ({
   images,
@@ -129,7 +130,7 @@ export const ImagesSlider = ({
 
       {areImagesLoaded && (
         <AnimatePresence>
-          <motion.img
+          <MotionImg
             key={currentIndex}
             src={loadedImages[currentIndex]}
             initial="initial"

@@ -7,11 +7,11 @@ import Search from '../Search/search';
 import { fetchUsers } from '@/data/users';
 export type FetcLessonsType = typeof fetchUsers;
 const TbodyUser = async (props: PageProps) => {
-  const pageNumber = Number(props?.searchParams?.page || 1); // Get the page number. Default to 1 if not provided.
+  const searchParams = (await props.searchParams) ?? {};
+  const pageNumber = Number(searchParams.page ?? 1); // Get the page number. Default to 1 if not provided.
   const take = 5;
   const skip = (pageNumber - 1) * take;
-  const search =
-    typeof props?.searchParams?.search === 'string' ? props?.searchParams?.search : undefined;
+  const search = typeof searchParams?.search === 'string' ? searchParams.search : undefined;
   const { data, metadata } = await fetchUsers({ take, skip, query: search });
   return (
     <>

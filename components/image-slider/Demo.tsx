@@ -23,11 +23,12 @@ export function ImagesSliderDemo() {
         transition={{
           duration: 0.6,
         }}
-        className="z-50 flex flex-col justify-center items-center"
       >
-        <motion.p className="font-bold text-xl md:text-2xl lg:text-4xl  text-center bg-clip-text text-transparent bg-gradient-to-b from-neutral-50 to-neutral-400 py-4">
-          Just Random Image <br />
-        </motion.p>
+        <div className="z-50 flex flex-col justify-center items-center">
+          <p className="font-bold text-xl md:text-2xl lg:text-4xl  text-center bg-clip-text text-transparent bg-gradient-to-b from-neutral-50 to-neutral-400 py-4">
+            Just Random Image <br />
+          </p>
+        </div>
       </motion.div>
     </ImagesSlider>
   );

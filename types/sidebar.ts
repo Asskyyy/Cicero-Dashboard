@@ -1,3 +1,4 @@
+import type { ReactNode } from 'react';
 import { UserRole } from '@prisma/client';
 import { UserStatus } from '@prisma/client';
 
@@ -6,7 +7,7 @@ export type SideNavItem = {
   allowedStatus: UserStatus[];
   title: string;
   path: string;
-  icon?: JSX.Element;
+  icon?: ReactNode;
   submenu?: boolean;
   subMenuItems?: SideNavItem[];
 };

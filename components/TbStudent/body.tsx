@@ -7,7 +7,8 @@ import { getAllClassrooms } from '@/data/academy';
 export type FetcStudentsType = typeof fetchStudents;
 const TbodyStudent = async (props: PageProps) => {
   const [classrooms] = await Promise.all([getAllClassrooms()]);
-  const pageNumber = Number(props?.searchParams?.page || 1); // Get the page number. Default to 1 if not provided.
+  const searchParams = (await props.searchParams) ?? {};
+  const pageNumber = Number(searchParams.page ?? 1); // Get the page number. Default to 1 if not provided.
   const take = 5;
   const skip = (pageNumber - 1) * take;
   const { data, metadata } = await fetchStudents({ take, skip });

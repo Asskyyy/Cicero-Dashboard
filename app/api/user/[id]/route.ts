@@ -17,8 +17,9 @@ const UserSchema = z.object({
 });
 const prisma = new PrismaClient();
 
-export const PATCH = async (request: Request, { params }: { params: { id: string } }) => {
+export const PATCH = async (request: Request, { params }: { params: Promise<{ id: string }> }) => {
   try {
+    const { id } = await params;
     const body: User = await request.json();
     const validatedData = UserSchema.parse(body);
 
@@ -26,14 +27,14 @@ export const PATCH = async (request: Request, { params }: { params: { id: string
       const existingUser = await prisma.user.findUnique({
         where: { email: validatedData.email },
       });
-      if (existingUser && existingUser.id !== params.id) {
+      if (existingUser && existingUser.id !== id) {
         return NextResponse.json({ error: 'Email already exists' }, { status: 400 });
       }
     }
 
     const user = await prisma.user.update({
       where: {
-        id: String(params.id),
+        id: String(id),
       },
       data: {
         name: validatedData.name,
@@ -43,7 +44,7 @@ export const PATCH = async (request: Request, { params }: { params: { id: string
         teacher: {
           updateMany: {
             where: {
-              userId: String(params.id), // Specify the teacher to update based on user ID
+              userId: String(id), // Specify the teacher to update based on user ID
             },
             data: {
               name: body.name, // Update the teacher's name
@@ -53,10 +54,10 @@ export const PATCH = async (request: Request, { params }: { params: { id: string
         student: {
           updateMany: {
             where: {
-              userId: String(params.id), // Specify the teacher to update based on user ID
+              userId: String(id), // Specify the student to update based on user ID
             },
             data: {
-              name: body.name, // Update the teacher's name
+              name: body.name, // Update the student's name
             },
           },
         },
@@ -113,10 +114,11 @@ export const PATCH = async (request: Request, { params }: { params: { id: string
   }
 };
 
-export const DELETE = async (request: Request, { params }: { params: { id: string } }) => {
+export const DELETE = async (request: Request, { params }: { params: Promise<{ id: string }> }) => {
+  const { id } = await params;
   const user = await prisma.user.delete({
     where: {
-      id: String(params.id),
+      id: String(id),
     },
   });
 

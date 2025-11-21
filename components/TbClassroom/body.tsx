@@ -6,7 +6,8 @@ import Pagination from '../pagination/pagination';
 import { fetchClassrooms, getTotalUsersInClassroom } from '@/data/classrooms';
 export type FetcStudentsType = typeof fetchClassrooms;
 const TbodyClassroom = async (props: PageProps) => {
-  const pageNumber = Number(props?.searchParams?.page || 1); // Get the page number. Default to 1 if not provided.
+  const searchParams = (await props.searchParams) ?? {};
+  const pageNumber = Number(searchParams.page ?? 1); // Get the page number. Default to 1 if not provided.
   const take = 5;
   const skip = (pageNumber - 1) * take;
   const { data, metadata } = await fetchClassrooms({ take, skip });
