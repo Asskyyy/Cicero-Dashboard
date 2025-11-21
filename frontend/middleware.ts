@@ -1,10 +1,10 @@
 import NextAuth from 'next-auth';
 import { NextRequest, NextResponse } from 'next/server';
 
-import authConfig from '@backend/auth/auth.config';
+import authEdgeConfig from '@backend/auth/auth.config.edge';
 import { AFTER_LOGIN_URL, apiAuthPrefix, authRoutes, publicRoutes } from '@/routes';
 
-const { auth } = NextAuth(authConfig);
+const { auth } = NextAuth(authEdgeConfig);
 
 export default auth(async (req) => {
   const { nextUrl } = req;

@@ -1,3 +1,5 @@
+import { Prisma, UserRole } from '@prisma/client';
+
 import { db } from '@backend/db/db';
 
 export const fetchUsers = async ({
@@ -11,10 +13,10 @@ export const fetchUsers = async ({
 }) => {
   'use server';
   try {
-    const baseWhere = {
-      name: query ? { contains: query, mode: 'insensitive' } : undefined,
+    const baseWhere: Prisma.UserWhereInput = {
+      name: query ? { contains: query, mode: Prisma.QueryMode.insensitive } : undefined,
       NOT: {
-        role: 'ADMIN',
+        role: UserRole.ADMIN,
       },
     };
 
