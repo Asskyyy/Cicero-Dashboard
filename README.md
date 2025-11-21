@@ -4,19 +4,19 @@
 
 此 README 適用於：
 
-* 初次安裝開發環境
-* 想在本地完整測試 Login、Dashboard、資料庫
-* 未部署前的本地測試流程
+- 初次安裝開發環境
+- 想在本地完整測試 Login、Dashboard、資料庫
+- 未部署前的本地測試流程
 
 ---
 
 # 📌 1. 系統需求
 
-* Windows 10 / 11
-* Node.js LTS（建議 v18+ / v20+）
-* Git for Windows
-* PostgreSQL（版本 16 或 17）
-* VSCode（非必要但建議）
+- Windows 10 / 11
+- Node.js LTS（建議 v18+ / v20+）
+- Git for Windows
+- PostgreSQL（版本 16 或 17）
+- VSCode（非必要但建議）
 
 ---
 
@@ -79,9 +79,10 @@ npm install
 2. 下載 **EDB Installer**
 3. 安裝期間會要求：
 
-   * Components：**PostgreSQL Server + pgAdmin**
-   * 設置 superuser 密碼（記住！）
-   * Port：5432（預設）
+   - Components：**PostgreSQL Server + pgAdmin**
+   - 設置 superuser 密碼（記住！）
+   - Port：5432（預設）
+
 4. 安裝完成後會自動開啟 Stack Builder（可直接關閉）
 
 ---
@@ -157,11 +158,11 @@ npx prisma studio
 
 進入 **User** 表，新增記錄：
 
-| 欄位                 | 值                                             |
+| 欄位               | 值                                            |
 | ------------------ | --------------------------------------------- |
 | name               | Admin                                         |
 | email              | [admin@example.com](mailto:admin@example.com) |
-| password           | bcrypt hash（下方教你產生）                           |
+| password           | bcrypt hash（下方教你產生）                   |
 | role               | ADMIN                                         |
 | gender             | UNKNOW                                        |
 | status             | ACTIVE                                        |
@@ -247,8 +248,8 @@ http://localhost:3000/auth/login
 
 輸入：
 
-* Email: `admin@example.com`
-* 密碼：你剛才設定嘅明碼
+- Email: `admin@example.com`
+- 密碼：你剛才設定嘅明碼
 
 若 email 驗證成功，你會收到寄送的 confirmation link。
 點擊後會進入 Dashboard。
@@ -259,15 +260,15 @@ http://localhost:3000/auth/login
 
 ### ❌ P1013: Invalid database string
 
-* `.env` 裏面的 `DATABASE_URL` 格式錯
-* 密碼含特殊符號需要 URL encode
-* `.env` 有 BOM（另存為 UTF-8 無 BOM）
+- `.env` 裏面的 `DATABASE_URL` 格式錯
+- 密碼含特殊符號需要 URL encode
+- `.env` 有 BOM（另存為 UTF-8 無 BOM）
 
 ---
 
 ### ❌ P1012: Must provide a nonempty direct URL
 
-* `schema.prisma` 使用了：
+- `schema.prisma` 使用了：
 
 ```prisma
 directUrl = env("DIRECT_URL")
@@ -279,17 +280,17 @@ directUrl = env("DIRECT_URL")
 
 ### ❌ Missing API key / Resend throw error
 
-* `.env` 的 `RESEND_API_KEY` 空白
-* 你使用未驗證 domain 作 sender
-* 用 `onboarding@resend.dev` 可以避過
+- `.env` 的 `RESEND_API_KEY` 空白
+- 你使用未驗證 domain 作 sender
+- 用 `onboarding@resend.dev` 可以避過
 
 ---
 
 ### ❌ Token does not exist
 
-* 你重複 login 令 token 被覆蓋
-* server restart 令 token 失效
-* email 未成功寫入 DB
+- 你重複 login 令 token 被覆蓋
+- server restart 令 token 失效
+- email 未成功寫入 DB
 
 **重新登入一次即可。**
 
@@ -326,6 +327,6 @@ AUTH_TRUST_HOST="true"
 
 本 README 已足夠讓任何新開發者：
 
-* 從零建立完整本地環境
-* 成功登入 Cicero Dashboard
-* 使用 DB、Email login、Prisma
+- 從零建立完整本地環境
+- 成功登入 Cicero Dashboard
+- 使用 DB、Email login、Prisma

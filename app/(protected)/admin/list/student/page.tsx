@@ -1,7 +1,7 @@
-import React from "react";
-import TbodyStudent from "@/components/TbStudent/body";
-import { Tbheadstudent } from "@/components/TbStudent/head";
-import { PageProps } from "@/types/pagination";
+import React from 'react';
+import TbodyStudent from '@/components/TbStudent/body';
+import { Tbheadstudent } from '@/components/TbStudent/head';
+import { PageProps } from '@/types/pagination';
 const UserList = async (props: PageProps) => {
   return (
     <div>

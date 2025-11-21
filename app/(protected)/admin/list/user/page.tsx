@@ -1,8 +1,8 @@
-import React from "react";
-import { Tbheaduser } from "@/components/TbUser/head";
-import TbodyUser from "@/components/TbUser/body";
-import Ad from "@/components/TbUser/btn/ad";
-import { PageProps } from "@/types/pagination";
+import React from 'react';
+import { Tbheaduser } from '@/components/TbUser/head';
+import TbodyUser from '@/components/TbUser/body';
+import Ad from '@/components/TbUser/btn/ad';
+import { PageProps } from '@/types/pagination';
 const UserList = async (props: PageProps) => {
   return (
     <div>

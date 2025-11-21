@@ -1,4 +1,4 @@
-import { db } from "@/lib/db";
+import { db } from '@/lib/db';
 
 export const getUserByEmail = async (email: string) => {
   try {
@@ -25,7 +25,7 @@ export const getAllUsers = async () => {
     const res = await db.user.findMany({
       orderBy: [
         {
-          name: "asc",
+          name: 'asc',
         },
       ],
       select: {

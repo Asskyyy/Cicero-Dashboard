@@ -1,21 +1,21 @@
-import React from "react";
-import { Tablehd } from "@/types/table";
+import React from 'react';
+import { Tablehd } from '@/types/table';
 
 const tablehdDataUser: Tablehd[] = [
   {
-    name: "Name",
+    name: 'Name',
   },
   {
-    name: "Email",
+    name: 'Email',
   },
   {
-    name: "Classroom",
+    name: 'Classroom',
   },
   {
-    name: "Status",
+    name: 'Status',
   },
   {
-    name: "Action",
+    name: 'Action',
   },
 ];
 export const Tbheadstudent = () => {
@@ -27,17 +27,17 @@ export const Tbheadstudent = () => {
             <th
               key={key}
               className={`font-medium text-white dark:text-white ${
-                tablehdItem.name === "Name"
-                  ? "min-w-[220px] px-4 py-4 xl:pl-11"
-                  : tablehdItem.name === "Email"
-                    ? "min-w-[150px] px-4 py-4"
-                    : tablehdItem.name === "Classroom"
-                      ? "min-w-[150px] px-4 py-4"
-                      : tablehdItem.name === "Status"
-                        ? "min-w-[150px] px-4 py-4"
-                        : tablehdItem.name === "Action"
-                          ? " min-w-[120px] px-4 py-4"
-                          : ""
+                tablehdItem.name === 'Name'
+                  ? 'min-w-[220px] px-4 py-4 xl:pl-11'
+                  : tablehdItem.name === 'Email'
+                    ? 'min-w-[150px] px-4 py-4'
+                    : tablehdItem.name === 'Classroom'
+                      ? 'min-w-[150px] px-4 py-4'
+                      : tablehdItem.name === 'Status'
+                        ? 'min-w-[150px] px-4 py-4'
+                        : tablehdItem.name === 'Action'
+                          ? ' min-w-[120px] px-4 py-4'
+                          : ''
               }`}
             >
               {tablehdItem.name}

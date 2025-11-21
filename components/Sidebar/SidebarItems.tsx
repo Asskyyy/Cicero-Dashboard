@@ -1,11 +1,11 @@
-"user client";
-import { SideNavItem } from "@/types/sidebar";
-import React, { useState } from "react";
-import { usePathname } from "next/navigation";
-import Link from "next/link";
-import classNames from "classnames";
-import { useSideBarToggle } from "@/hooks/sidebar-toggle";
-import { useCurrentRole } from "@/hooks/use-current-role";
+'user client';
+import { SideNavItem } from '@/types/sidebar';
+import React, { useState } from 'react';
+import { usePathname } from 'next/navigation';
+import Link from 'next/link';
+import classNames from 'classnames';
+import { useSideBarToggle } from '@/hooks/sidebar-toggle';
+import { useCurrentRole } from '@/hooks/use-current-role';
 export const SidebarItems = ({ item }: { item: SideNavItem }) => {
   const { toggleCollapse } = useSideBarToggle();
   const role = useCurrentRole();
@@ -18,15 +18,14 @@ export const SidebarItems = ({ item }: { item: SideNavItem }) => {
   };
 
   const inactiveLink = classNames(
-    "h-200 text-sidebar-foreground py-2 pl-1  rounded-md transition duration-200",
-    { ["justify-start"]: toggleCollapse }
+    'h-200 text-sidebar-foreground py-2 pl-1  rounded-md transition duration-200',
+    { ['justify-start']: toggleCollapse }
   );
 
-  const activeLink =
-    "font-medium text-bodydark1 bg-blue-700 rounded-r-full disabled";
+  const activeLink = 'font-medium text-bodydark1 bg-blue-700 rounded-r-full disabled';
 
   const navMenuDropdownItem =
-    "dark:text-bodydark2 dark:hover:text-white border border-blue-400 dark:border-boxdark py-2  text-black hover:text-white hover:bg-blue-600 hover:rounded-r-full hover:text-white rounded-md ";
+    'dark:text-bodydark2 dark:hover:text-white border border-blue-400 dark:border-boxdark py-2  text-black hover:text-white hover:bg-blue-600 hover:rounded-r-full hover:text-white rounded-md ';
 
   // Memeriksa apakah role termasuk dalam allowedRole
   if (!role || !item.allowedRole.includes(role)) {
@@ -43,12 +42,10 @@ export const SidebarItems = ({ item }: { item: SideNavItem }) => {
             <div>{item.icon}</div>
             {!toggleCollapse && (
               <>
-                <span className="ml-3 text-base leading-6 font-semibold">
-                  {item.title}
-                </span>
+                <span className="ml-3 text-base leading-6 font-semibold">{item.title}</span>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  className={`${subMenuOpen ? "rotate-90" : ""} ml-auto h-4 w-4 stroke-2 text-xs`}
+                  className={`${subMenuOpen ? 'rotate-90' : ''} ml-auto h-4 w-4 stroke-2 text-xs`}
                   viewBox="0 0 20 20"
                   fill="currentColor"
                 >
@@ -69,21 +66,19 @@ export const SidebarItems = ({ item }: { item: SideNavItem }) => {
                     key={idx}
                     href={subItem.path}
                     className={`${navMenuDropdownItem} ${
-                      subItem.path === pathname ? activeLink : ""
+                      subItem.path === pathname ? activeLink : ''
                     }`}
                   >
                     <button
                       className={`${
                         subItem.path === pathname
-                          ? "text-white group relative flex items-center gap-2.5 rounded-md px-4 font-medium"
-                          : "group relative flex items-center gap-2.5 rounded-md px-4 font-medium duration-300 ease-in-out"
+                          ? 'text-white group relative flex items-center gap-2.5 rounded-md px-4 font-medium'
+                          : 'group relative flex items-center gap-2.5 rounded-md px-4 font-medium duration-300 ease-in-out'
                       }`}
                     >
                       <div>{subItem.icon}</div>
                       {!toggleCollapse && (
-                        <span className="ml-3 w-200 leading-6 font-semibold">
-                          {subItem.title}
-                        </span>
+                        <span className="ml-3 w-200 leading-6 font-semibold">{subItem.title}</span>
                       )}
                     </button>
                   </Link>
@@ -95,20 +90,18 @@ export const SidebarItems = ({ item }: { item: SideNavItem }) => {
       ) : (
         <Link
           href={item.path}
-          className={`${inactiveLink} ${item.path === pathname ? "active" : ""}`}
+          className={`${inactiveLink} ${item.path === pathname ? 'active' : ''}`}
         >
           <button
             className={`${
               item.path === pathname
-                ? "w-[17rem] group relative flex items-center gap-2.5 rounded-r-full px-4 my-2 py-4 font-medium border border-bodydark1  text-bodydark1 bg-blue-700 disabled"
-                : "w-[17rem] group relative flex items-center gap-2.5 hover:rounded-r-full px-4 my-0.5 py-4 font-medium duration-300ease-in-out dark:text-bodydark2 hover:text-bodydark1 text-black border border-blue-700 hover:border-bodydark1 bg-bodydark1 hover:bg-blue-700 dark:hover:bg-meta-4 dark:bg-meta-4 dark:border-boxdark"
+                ? 'w-[17rem] group relative flex items-center gap-2.5 rounded-r-full px-4 my-2 py-4 font-medium border border-bodydark1  text-bodydark1 bg-blue-700 disabled'
+                : 'w-[17rem] group relative flex items-center gap-2.5 hover:rounded-r-full px-4 my-0.5 py-4 font-medium duration-300ease-in-out dark:text-bodydark2 hover:text-bodydark1 text-black border border-blue-700 hover:border-bodydark1 bg-bodydark1 hover:bg-blue-700 dark:hover:bg-meta-4 dark:bg-meta-4 dark:border-boxdark'
             }`}
           >
             <div className="min-w-[20px]">{item.icon}</div>
             {!toggleCollapse && (
-              <span className="ml-3 w-200 leading-6 font-semibold">
-                {item.title}
-              </span>
+              <span className="ml-3 w-200 leading-6 font-semibold">{item.title}</span>
             )}
           </button>
         </Link>

@@ -1,12 +1,12 @@
-"use client";
+'use client';
 
-import * as z from "zod";
-import { useState, useTransition } from "react";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
+import * as z from 'zod';
+import { useState, useTransition } from 'react';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
 
-import { RegisterSchema } from "@/schemas";
-import { Input } from "@/components/ui/input";
+import { RegisterSchema } from '@/schemas';
+import { Input } from '@/components/ui/input';
 import {
   Form,
   FormControl,
@@ -14,30 +14,30 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form";
-import { CardWrapper } from "@/components/auth/card-wrapper";
-import { Button } from "@/components/ui/button";
-import { FormError } from "@/components/form-error";
-import { FormSuccess } from "@/components/form-success";
-import { register } from "@/actions/register";
+} from '@/components/ui/form';
+import { CardWrapper } from '@/components/auth/card-wrapper';
+import { Button } from '@/components/ui/button';
+import { FormError } from '@/components/form-error';
+import { FormSuccess } from '@/components/form-success';
+import { register } from '@/actions/register';
 
 export const RegisterForm = () => {
-  const [error, setError] = useState<string | undefined>("");
-  const [success, setSuccess] = useState<string | undefined>("");
+  const [error, setError] = useState<string | undefined>('');
+  const [success, setSuccess] = useState<string | undefined>('');
   const [isPending, startTransition] = useTransition();
 
   const form = useForm<z.infer<typeof RegisterSchema>>({
     resolver: zodResolver(RegisterSchema),
     defaultValues: {
-      email: "",
-      password: "",
-      name: "",
+      email: '',
+      password: '',
+      name: '',
     },
   });
 
   const onSubmit = (values: z.infer<typeof RegisterSchema>) => {
-    setError("");
-    setSuccess("");
+    setError('');
+    setSuccess('');
 
     startTransition(() => {
       register(values).then((data) => {
@@ -64,11 +64,7 @@ export const RegisterForm = () => {
                 <FormItem>
                   <FormLabel>Name</FormLabel>
                   <FormControl>
-                    <Input
-                      {...field}
-                      disabled={isPending}
-                      placeholder="Example"
-                    />
+                    <Input {...field} disabled={isPending} placeholder="Example" />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -99,12 +95,7 @@ export const RegisterForm = () => {
                 <FormItem>
                   <FormLabel>Password</FormLabel>
                   <FormControl>
-                    <Input
-                      {...field}
-                      disabled={isPending}
-                      placeholder="******"
-                      type="password"
-                    />
+                    <Input {...field} disabled={isPending} placeholder="******" type="password" />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -113,11 +104,7 @@ export const RegisterForm = () => {
           </div>
           <FormError message={error} />
           <FormSuccess message={success} />
-          <Button
-            disabled={isPending}
-            type="submit"
-            className="w-full text-white"
-          >
+          <Button disabled={isPending} type="submit" className="w-full text-white">
             Create an account
           </Button>
         </form>

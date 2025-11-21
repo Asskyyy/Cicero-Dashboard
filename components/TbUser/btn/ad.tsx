@@ -1,20 +1,20 @@
-"use client";
-import axios from "axios";
-import { useState, SyntheticEvent } from "react";
-import { UserRole } from "@prisma/client";
-import { useRouter } from "next/navigation";
-import { UserStatus } from "@prisma/client";
-import { useToast } from "@/components/ui/use-toast";
+'use client';
+import axios from 'axios';
+import { useState, SyntheticEvent } from 'react';
+import { UserRole } from '@prisma/client';
+import { useRouter } from 'next/navigation';
+import { UserStatus } from '@prisma/client';
+import { useToast } from '@/components/ui/use-toast';
 
 const Ad = () => {
   const { toast } = useToast();
   const [isLoading, setIsLoading] = useState(false);
   const [showModal, setShowModal] = useState(false);
-  const [name, setName] = useState("");
-  const [password, setPassword] = useState("");
-  const [email, setEmail] = useState("");
-  const [role, setRole] = useState("");
-  const [status, setStatus] = useState("");
+  const [name, setName] = useState('');
+  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState('');
+  const [role, setRole] = useState('');
+  const [status, setStatus] = useState('');
   const router = useRouter();
   const handleAdd = async (e: SyntheticEvent) => {
     e.preventDefault();
@@ -28,37 +28,33 @@ const Ad = () => {
         status: status,
       });
       toast({
-        title: "User Add successfully",
+        title: 'User Add successfully',
         description: `User : ${response.data.name}, Role ${response.data.role}`,
       });
     } catch (error: any) {
-      let errorMessage = "An error occurred";
+      let errorMessage = 'An error occurred';
       if (error.response && error.response.data && error.response.data.error) {
         errorMessage = error.response.data.error;
       }
       toast({
-        variant: "destructive",
-        title: "Uh oh! Something went wrong.",
+        variant: 'destructive',
+        title: 'Uh oh! Something went wrong.',
         description: errorMessage,
-        className: "bg-red text-white",
+        className: 'bg-red text-white',
       });
     }
     setIsLoading(false);
     setShowModal(false);
-    setName("");
-    setPassword("");
-    setEmail("");
-    setRole("");
-    setStatus("");
+    setName('');
+    setPassword('');
+    setEmail('');
+    setRole('');
+    setStatus('');
     router.refresh();
   };
   return (
     <>
-      <button
-        className="btnAdd"
-        type="button"
-        onClick={() => setShowModal(true)}
-      >
+      <button className="btnAdd" type="button" onClick={() => setShowModal(true)}>
         Add
       </button>
       {showModal ? (
@@ -69,9 +65,7 @@ const Ad = () => {
               <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white dark:border-strokedark dark:bg-boxdark outline-none focus:outline-none">
                 {/*header*/}
                 <div className="flex items-start justify-between p-5 border-b border-solid border-blueGray-200 rounded-t">
-                  <h3 className="text-3xl font-semibold text-black dark:text-white">
-                    Add User
-                  </h3>
+                  <h3 className="text-3xl font-semibold text-black dark:text-white">Add User</h3>
                 </div>
                 {/*body*/}
                 <div className="relative p-6 flex-auto">
@@ -161,11 +155,7 @@ const Ad = () => {
                 </div>
                 {/*footer*/}
                 <div className="flex items-center justify-end p-6 border-t border-solid border-blueGray-200 rounded-b">
-                  <button
-                    className="btnClose"
-                    type="button"
-                    onClick={() => setShowModal(false)}
-                  >
+                  <button className="btnClose" type="button" onClick={() => setShowModal(false)}>
                     Close
                   </button>
                   <button
@@ -174,7 +164,7 @@ const Ad = () => {
                     onClick={handleAdd}
                     disabled={isLoading}
                   >
-                    {isLoading ? "Loading..." : "Save Changes"}
+                    {isLoading ? 'Loading...' : 'Save Changes'}
                   </button>
                 </div>
               </div>

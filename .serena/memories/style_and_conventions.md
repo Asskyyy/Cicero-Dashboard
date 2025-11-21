@@ -1,4 +1,5 @@
 # Style and conventions
+
 - Language: TypeScript with `strict` + `strictNullChecks`, no emit. Use App Router patterns. Prefer typed objects/schemas (zod) and hook-form usage.
 - Lint/format: ESLint (`next`, `next/core-web-vitals`, `prettier`). Prettier expected; follow Next.js/React best practices, no custom ESLint rules defined.
 - Imports: path alias `@/*`; keep moduleResolution `bundler`. Keep tailwind classes consistent with defined palette; dark mode via `class` strategy.

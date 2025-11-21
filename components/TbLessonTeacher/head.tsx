@@ -1,12 +1,12 @@
-import React from "react";
-import { Tablehd } from "@/types/table";
+import React from 'react';
+import { Tablehd } from '@/types/table';
 
 const tablehdDataLesson: Tablehd[] = [
   {
-    name: "Name",
+    name: 'Name',
   },
   {
-    name: "Category",
+    name: 'Category',
   },
 ];
 export const TbheadLessonteacher = () => {
@@ -18,11 +18,11 @@ export const TbheadLessonteacher = () => {
             <th
               key={key}
               className={`font-medium text-white dark:text-white ${
-                tablehdItem.name === "Name"
-                  ? "min-w-[220px] px-4 py-4 xl:pl-11"
-                  : tablehdItem.name === "Category"
-                    ? "min-w-[150px] px-4 py-4"
-                    : ""
+                tablehdItem.name === 'Name'
+                  ? 'min-w-[220px] px-4 py-4 xl:pl-11'
+                  : tablehdItem.name === 'Category'
+                    ? 'min-w-[150px] px-4 py-4'
+                    : ''
               }`}
             >
               {tablehdItem.name}

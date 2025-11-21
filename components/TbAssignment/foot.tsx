@@ -1,5 +1,5 @@
-import React from "react";
-import Pagination from "../pagination/pagination";
+import React from 'react';
+import Pagination from '../pagination/pagination';
 
 interface TbAssignmentfootProps {
   metadata: any; // Ganti 'any' dengan tipe yang sesuai jika diketahui

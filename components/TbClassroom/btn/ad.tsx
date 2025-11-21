@@ -1,13 +1,13 @@
-"use client";
-import axios from "axios";
-import { useState, SyntheticEvent } from "react";
-import { useRouter } from "next/navigation";
-import { useToast } from "@/components/ui/use-toast";
+'use client';
+import axios from 'axios';
+import { useState, SyntheticEvent } from 'react';
+import { useRouter } from 'next/navigation';
+import { useToast } from '@/components/ui/use-toast';
 const Ad = () => {
   const { toast } = useToast();
   const [showModal, setShowModal] = useState(false);
-  const [name, setName] = useState("");
-  const [cap, setCap] = useState("");
+  const [name, setName] = useState('');
+  const [cap, setCap] = useState('');
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
   const handleAdd = async (e: SyntheticEvent) => {
@@ -19,35 +19,31 @@ const Ad = () => {
         cap: cap,
       });
       toast({
-        title: "Classroom Add successfully",
+        title: 'Classroom Add successfully',
         description: `classroom : ${response.data.name}
         Capacity: ${response.data.cap}`,
       });
     } catch (error: any) {
-      let errorMessage = "An error occurred";
+      let errorMessage = 'An error occurred';
       if (error.response && error.response.data && error.response.data.error) {
         errorMessage = error.response.data.error;
       }
       toast({
-        variant: "destructive",
-        title: "Uh oh! Something went wrong.",
+        variant: 'destructive',
+        title: 'Uh oh! Something went wrong.',
         description: errorMessage,
-        className: "bg-red text-white",
+        className: 'bg-red text-white',
       });
     }
     setIsLoading(false);
-    setName("");
-    setCap("");
+    setName('');
+    setCap('');
     setShowModal(false);
     router.refresh();
   };
   return (
     <>
-      <button
-        className="btnAdd"
-        type="button"
-        onClick={() => setShowModal(true)}
-      >
+      <button className="btnAdd" type="button" onClick={() => setShowModal(true)}>
         Add
       </button>
       {showModal ? (
@@ -97,11 +93,7 @@ const Ad = () => {
                 </div>
                 {/*footer*/}
                 <div className="flex items-center justify-end p-6 border-t border-solid border-blueGray-200 rounded-b">
-                  <button
-                    className="btnClose"
-                    type="button"
-                    onClick={() => setShowModal(false)}
-                  >
+                  <button className="btnClose" type="button" onClick={() => setShowModal(false)}>
                     Close
                   </button>
                   <button
@@ -110,7 +102,7 @@ const Ad = () => {
                     onClick={handleAdd}
                     disabled={isLoading}
                   >
-                    {isLoading ? "Loading..." : "Save Changes"}
+                    {isLoading ? 'Loading...' : 'Save Changes'}
                   </button>
                 </div>
               </div>

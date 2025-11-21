@@ -1,8 +1,8 @@
-"use client";
-import axios from "axios";
-import { useState, SyntheticEvent } from "react";
-import { useRouter } from "next/navigation";
-import { useToast } from "@/components/ui/use-toast";
+'use client';
+import axios from 'axios';
+import { useState, SyntheticEvent } from 'react';
+import { useRouter } from 'next/navigation';
+import { useToast } from '@/components/ui/use-toast';
 
 type User = {
   id: string;
@@ -21,18 +21,18 @@ const Del = ({ user }: { user: User }) => {
     try {
       await axios.delete(`/api/user/${user.id}`);
       toast({
-        description: "Success Delete User",
+        description: 'Success Delete User',
       });
     } catch (error: any) {
-      let errorMessage = "An error occurred";
+      let errorMessage = 'An error occurred';
       if (error.response && error.response.data && error.response.data.error) {
         errorMessage = error.response.data.error;
       }
       toast({
-        variant: "destructive",
-        title: "Uh oh! Something went wrong.",
+        variant: 'destructive',
+        title: 'Uh oh! Something went wrong.',
         description: errorMessage,
-        className: "bg-red text-white",
+        className: 'bg-red text-white',
       });
     } finally {
       setIsLoading(false);
@@ -43,11 +43,7 @@ const Del = ({ user }: { user: User }) => {
 
   return (
     <>
-      <button
-        className="btnDel"
-        type="button"
-        onClick={() => setShowModal(true)}
-      >
+      <button className="btnDel" type="button" onClick={() => setShowModal(true)}>
         Delete
       </button>
       {showModal ? (
@@ -70,11 +66,7 @@ const Del = ({ user }: { user: User }) => {
                 </div>
                 {/*footer*/}
                 <div className="flex items-center justify-end p-6 border-t border-solid border-blueGray-200 rounded-b">
-                  <button
-                    className="btnClose"
-                    type="button"
-                    onClick={() => setShowModal(false)}
-                  >
+                  <button className="btnClose" type="button" onClick={() => setShowModal(false)}>
                     Close
                   </button>
                   <button
@@ -83,7 +75,7 @@ const Del = ({ user }: { user: User }) => {
                     onClick={() => handleDelete(user.id)}
                     disabled={isLoading}
                   >
-                    {isLoading ? "Loading..." : "Save Changes"}
+                    {isLoading ? 'Loading...' : 'Save Changes'}
                   </button>
                 </div>
               </div>

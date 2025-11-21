@@ -1,4 +1,5 @@
 # Project overview
+
 - Purpose: Cicero Dashboard web app (Next.js App Router) with Auth.js, Prisma/PostgreSQL, Tailwind UI, Resend emails (2FA/verification), using template from Nextjs-SchoolManagementSystem.
 - Stack: Next 14/React 18/TypeScript, Prisma 5 with PostgreSQL, Auth.js NextAuth beta, TailwindCSS + custom design tokens, Radix UI components, Zustand/SWR/react-hook-form/zod, Resend email + React Email, optional Firebase dependency present.
 - Structure: top-level dirs include app (routes/layouts), components (UI widgets), hooks, lib (utils, auth providers), prisma (schema/migrations), public assets, constants/data/schemas/types, actions for server actions, middleware.ts for auth, next-auth.d.ts typings.

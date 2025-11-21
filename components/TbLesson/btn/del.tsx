@@ -1,8 +1,8 @@
-"use client";
-import axios from "axios";
-import { useState, SyntheticEvent } from "react";
-import { useRouter } from "next/navigation";
-import { useToast } from "@/components/ui/use-toast";
+'use client';
+import axios from 'axios';
+import { useState, SyntheticEvent } from 'react';
+import { useRouter } from 'next/navigation';
+import { useToast } from '@/components/ui/use-toast';
 type Lesson = {
   id: string;
   name: string;
@@ -18,18 +18,18 @@ const Del = ({ lesson }: { lesson: Lesson }) => {
     try {
       await axios.delete(`/api/lesson/${lesson.id}`);
       toast({
-        description: "Success Delete Lesson",
+        description: 'Success Delete Lesson',
       });
     } catch (error: any) {
-      let errorMessage = "An error occurred";
+      let errorMessage = 'An error occurred';
       if (error.response && error.response.data && error.response.data.error) {
         errorMessage = error.response.data.error;
       }
       toast({
-        variant: "destructive",
-        title: "Uh oh! Something went wrong.",
+        variant: 'destructive',
+        title: 'Uh oh! Something went wrong.',
         description: errorMessage,
-        className: "bg-red text-white",
+        className: 'bg-red text-white',
       });
     } finally {
       setIsLoading(false);
@@ -40,11 +40,7 @@ const Del = ({ lesson }: { lesson: Lesson }) => {
 
   return (
     <>
-      <button
-        className="btnDel"
-        type="button"
-        onClick={() => setShowModal(true)}
-      >
+      <button className="btnDel" type="button" onClick={() => setShowModal(true)}>
         Delete
       </button>
       {showModal ? (
@@ -67,11 +63,7 @@ const Del = ({ lesson }: { lesson: Lesson }) => {
                 </div>
                 {/*footer*/}
                 <div className="flex items-center justify-end p-6 border-t border-solid border-blueGray-200 rounded-b">
-                  <button
-                    className="btnClose"
-                    type="button"
-                    onClick={() => setShowModal(false)}
-                  >
+                  <button className="btnClose" type="button" onClick={() => setShowModal(false)}>
                     Close
                   </button>
                   <button
@@ -80,7 +72,7 @@ const Del = ({ lesson }: { lesson: Lesson }) => {
                     onClick={() => handleDelete(lesson.id)}
                     disabled={isLoading}
                   >
-                    {isLoading ? "Loading..." : "Save Changes"}
+                    {isLoading ? 'Loading...' : 'Save Changes'}
                   </button>
                 </div>
               </div>

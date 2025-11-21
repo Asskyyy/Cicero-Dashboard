@@ -1,9 +1,9 @@
-"use client";
-import axios from "axios";
-import { useState, SyntheticEvent } from "react";
-import { useRouter } from "next/navigation";
-import { Lessons, Classrooms } from "@prisma/client";
-import { useToast } from "@/components/ui/use-toast";
+'use client';
+import axios from 'axios';
+import { useState, SyntheticEvent } from 'react';
+import { useRouter } from 'next/navigation';
+import { Lessons, Classrooms } from '@prisma/client';
+import { useToast } from '@/components/ui/use-toast';
 
 type Assignment = {
   id: string;
@@ -26,15 +26,13 @@ const Edt = ({ assignment, lessons, classrooms }: EdtProps) => {
   const { toast } = useToast();
   const [isLoading, setIsLoading] = useState(false);
   const [showModal, setShowModal] = useState(false);
-  const [deadline, setDeadline] = useState(
-    assignment.deadline.toISOString().split("T")[0] || ""
-  );
-  const [time, setTime] = useState(assignment.time || "");
-  const [file, setFile] = useState(assignment.fileUrl || "");
-  const [lessonId, setLesson] = useState(assignment.lessonId || "");
-  const [classId, setClass] = useState(assignment.classId || "");
-  const [task, setTask] = useState(assignment.task || "");
-  const [teacherId, setTeacherId] = useState(assignment.createBy || "");
+  const [deadline, setDeadline] = useState(assignment.deadline.toISOString().split('T')[0] || '');
+  const [time, setTime] = useState(assignment.time || '');
+  const [file, setFile] = useState(assignment.fileUrl || '');
+  const [lessonId, setLesson] = useState(assignment.lessonId || '');
+  const [classId, setClass] = useState(assignment.classId || '');
+  const [task, setTask] = useState(assignment.task || '');
+  const [teacherId, setTeacherId] = useState(assignment.createBy || '');
   const router = useRouter();
 
   const handleUpdate = async (e: SyntheticEvent) => {
@@ -42,7 +40,7 @@ const Edt = ({ assignment, lessons, classrooms }: EdtProps) => {
     e.preventDefault();
     try {
       if (
-        deadline === assignment.deadline.toISOString().split("T")[0] &&
+        deadline === assignment.deadline.toISOString().split('T')[0] &&
         time === assignment.time &&
         classId === assignment.classId &&
         task === assignment.task &&
@@ -62,19 +60,19 @@ const Edt = ({ assignment, lessons, classrooms }: EdtProps) => {
         createBy: teacherId,
       });
       toast({
-        title: "Assignment Add successfully",
+        title: 'Assignment Add successfully',
         description: `Assignment : ${response.data.task}`,
       });
     } catch (error: any) {
-      let errorMessage = "An error occurred";
+      let errorMessage = 'An error occurred';
       if (error.response && error.response.data && error.response.data.error) {
         errorMessage = error.response.data.error;
       }
       toast({
-        variant: "destructive",
-        title: "Uh oh! Something went wrong.",
+        variant: 'destructive',
+        title: 'Uh oh! Something went wrong.',
         description: errorMessage,
-        className: "bg-red text-white",
+        className: 'bg-red text-white',
       });
     }
     setIsLoading(false);
@@ -83,11 +81,7 @@ const Edt = ({ assignment, lessons, classrooms }: EdtProps) => {
   };
   return (
     <>
-      <button
-        className="btnEdt"
-        type="button"
-        onClick={() => setShowModal(true)}
-      >
+      <button className="btnEdt" type="button" onClick={() => setShowModal(true)}>
         Edit
       </button>
       {showModal ? (
@@ -131,9 +125,7 @@ const Edt = ({ assignment, lessons, classrooms }: EdtProps) => {
                       className="border border-gray-300 rounded-md p-2 w-full text-black"
                       value={lessonId}
                       onChange={(e) => {
-                        const selectedLesson = lessons.find(
-                          (l) => l.id === e.target.value
-                        );
+                        const selectedLesson = lessons.find((l) => l.id === e.target.value);
                         if (selectedLesson) {
                           setLesson(selectedLesson.id);
                           setTeacherId(selectedLesson.teacherId);
@@ -204,11 +196,7 @@ const Edt = ({ assignment, lessons, classrooms }: EdtProps) => {
                 </div>
                 {/*footer*/}
                 <div className="flex items-center justify-end p-6 border-t border-solid border-blueGray-200 rounded-b">
-                  <button
-                    className="btnClose"
-                    type="button"
-                    onClick={() => setShowModal(false)}
-                  >
+                  <button className="btnClose" type="button" onClick={() => setShowModal(false)}>
                     Close
                   </button>
                   <button
@@ -217,7 +205,7 @@ const Edt = ({ assignment, lessons, classrooms }: EdtProps) => {
                     onClick={handleUpdate}
                     disabled={isLoading}
                   >
-                    {isLoading ? "Loading..." : "Save Changes"}
+                    {isLoading ? 'Loading...' : 'Save Changes'}
                   </button>
                 </div>
               </div>

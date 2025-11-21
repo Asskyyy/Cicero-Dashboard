@@ -1,7 +1,7 @@
-import React from "react";
-import TbodyTeacher from "@/components/TbTeacher/body";
-import { Tbheadteacher } from "@/components/TbTeacher/head";
-import { PageProps } from "@/types/pagination";
+import React from 'react';
+import TbodyTeacher from '@/components/TbTeacher/body';
+import { Tbheadteacher } from '@/components/TbTeacher/head';
+import { PageProps } from '@/types/pagination';
 const TeacherList = async (props: PageProps) => {
   return (
     <div>

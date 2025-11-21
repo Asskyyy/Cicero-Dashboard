@@ -1,6 +1,6 @@
-import React from "react";
-import { TbheadLesson } from "@/components/TbScheduleTeacher/head";
-import TbodyLesson from "@/components/TbScheduleTeacher/body";
+import React from 'react';
+import { TbheadLesson } from '@/components/TbScheduleTeacher/head';
+import TbodyLesson from '@/components/TbScheduleTeacher/body';
 
 const Schedulelist = async () => {
   return (

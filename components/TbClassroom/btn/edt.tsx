@@ -1,8 +1,8 @@
-"use client";
-import axios from "axios";
-import { useState, SyntheticEvent } from "react";
-import { useRouter } from "next/navigation";
-import { useToast } from "@/components/ui/use-toast";
+'use client';
+import axios from 'axios';
+import { useState, SyntheticEvent } from 'react';
+import { useRouter } from 'next/navigation';
+import { useToast } from '@/components/ui/use-toast';
 type Classroom = {
   id: string;
   cap: string;
@@ -12,8 +12,8 @@ type Classroom = {
 const Edt = ({ classroom }: { classroom: Classroom }) => {
   const { toast } = useToast();
   const [showModal, setShowModal] = useState(false);
-  const [name, setName] = useState(classroom.name || "");
-  const [cap, setCap] = useState(classroom.cap || "");
+  const [name, setName] = useState(classroom.name || '');
+  const [cap, setCap] = useState(classroom.cap || '');
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
   const handleUpdate = async (e: SyntheticEvent) => {
@@ -30,20 +30,20 @@ const Edt = ({ classroom }: { classroom: Classroom }) => {
         cap: cap,
       });
       toast({
-        title: "Classroom Edit successfully",
+        title: 'Classroom Edit successfully',
         description: `classroom : ${response.data.name}
         Capacity: ${response.data.cap}`,
       });
     } catch (error: any) {
-      let errorMessage = "An error occurred";
+      let errorMessage = 'An error occurred';
       if (error.response && error.response.data && error.response.data.error) {
         errorMessage = error.response.data.error;
       }
       toast({
-        variant: "destructive",
-        title: "Uh oh! Something went wrong.",
+        variant: 'destructive',
+        title: 'Uh oh! Something went wrong.',
         description: errorMessage,
-        className: "bg-red text-white",
+        className: 'bg-red text-white',
       });
     }
     setIsLoading(false);
@@ -52,11 +52,7 @@ const Edt = ({ classroom }: { classroom: Classroom }) => {
   };
   return (
     <>
-      <button
-        className="btnEdt"
-        type="button"
-        onClick={() => setShowModal(true)}
-      >
+      <button className="btnEdt" type="button" onClick={() => setShowModal(true)}>
         Edit
       </button>
       {showModal ? (
@@ -106,11 +102,7 @@ const Edt = ({ classroom }: { classroom: Classroom }) => {
                 </div>
                 {/*footer*/}
                 <div className="flex items-center justify-end p-6 border-t border-solid border-blueGray-200 rounded-b">
-                  <button
-                    className="btnClose"
-                    type="button"
-                    onClick={() => setShowModal(false)}
-                  >
+                  <button className="btnClose" type="button" onClick={() => setShowModal(false)}>
                     Close
                   </button>
                   <button
@@ -119,7 +111,7 @@ const Edt = ({ classroom }: { classroom: Classroom }) => {
                     onClick={handleUpdate}
                     disabled={isLoading}
                   >
-                    {isLoading ? "Loading..." : "Save Changes"}
+                    {isLoading ? 'Loading...' : 'Save Changes'}
                   </button>
                 </div>
               </div>

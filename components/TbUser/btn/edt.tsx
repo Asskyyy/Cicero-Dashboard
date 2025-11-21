@@ -1,10 +1,10 @@
-"use client";
-import axios from "axios";
-import { useState, SyntheticEvent } from "react";
-import { UserRole } from "@prisma/client";
-import { UserStatus } from "@prisma/client";
-import { useRouter } from "next/navigation";
-import { useToast } from "@/components/ui/use-toast";
+'use client';
+import axios from 'axios';
+import { useState, SyntheticEvent } from 'react';
+import { UserRole } from '@prisma/client';
+import { UserStatus } from '@prisma/client';
+import { useRouter } from 'next/navigation';
+import { useToast } from '@/components/ui/use-toast';
 
 type User = {
   id: string;
@@ -18,8 +18,8 @@ const Edt = ({ user }: { user: User }) => {
   const { toast } = useToast();
   const [isLoading, setIsLoading] = useState(false);
   const [showModal, setShowModal] = useState(false);
-  const [name, setName] = useState(user.name || "");
-  const [email, setEmail] = useState(user.email || "");
+  const [name, setName] = useState(user.name || '');
+  const [email, setEmail] = useState(user.email || '');
   const [role, setRole] = useState<UserRole>(user.role);
   const [status, setStatus] = useState<UserStatus>(user.status);
   const router = useRouter();
@@ -46,19 +46,19 @@ const Edt = ({ user }: { user: User }) => {
         status: status,
       });
       toast({
-        title: "User edited successfully",
+        title: 'User edited successfully',
         description: `User: ${response.data.name}, Role: ${response.data.role}`,
       });
     } catch (error: any) {
-      let errorMessage = "An error occurred";
+      let errorMessage = 'An error occurred';
       if (error.response && error.response.data && error.response.data.error) {
         errorMessage = error.response.data.error;
       }
       toast({
-        variant: "destructive",
-        title: "Uh oh! Something went wrong.",
+        variant: 'destructive',
+        title: 'Uh oh! Something went wrong.',
         description: errorMessage,
-        className: "bg-red text-white",
+        className: 'bg-red text-white',
       });
     }
     setIsLoading(false);
@@ -67,11 +67,7 @@ const Edt = ({ user }: { user: User }) => {
   };
   return (
     <>
-      <button
-        className="btnEdt"
-        type="button"
-        onClick={() => setShowModal(true)}
-      >
+      <button className="btnEdt" type="button" onClick={() => setShowModal(true)}>
         Edit
       </button>
       {showModal ? (
@@ -160,11 +156,7 @@ const Edt = ({ user }: { user: User }) => {
                 </div>
                 {/*footer*/}
                 <div className="flex items-center justify-end p-6 border-t border-solid border-blueGray-200 rounded-b">
-                  <button
-                    className="btnClose"
-                    type="button"
-                    onClick={() => setShowModal(false)}
-                  >
+                  <button className="btnClose" type="button" onClick={() => setShowModal(false)}>
                     Close
                   </button>
                   <button
@@ -173,7 +165,7 @@ const Edt = ({ user }: { user: User }) => {
                     onClick={handleUpdate}
                     disabled={isLoading}
                   >
-                    {isLoading ? "Loading..." : "Save Changes"}
+                    {isLoading ? 'Loading...' : 'Save Changes'}
                   </button>
                 </div>
               </div>

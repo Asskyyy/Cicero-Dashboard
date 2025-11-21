@@ -1,9 +1,9 @@
-"use client";
-import axios from "axios";
-import { useState, SyntheticEvent } from "react";
-import { Classrooms } from "@prisma/client";
-import { useRouter } from "next/navigation";
-import { useToast } from "@/components/ui/use-toast";
+'use client';
+import axios from 'axios';
+import { useState, SyntheticEvent } from 'react';
+import { Classrooms } from '@prisma/client';
+import { useRouter } from 'next/navigation';
+import { useToast } from '@/components/ui/use-toast';
 type Student = {
   id: string;
   userId: string;
@@ -17,9 +17,9 @@ const Add = ({ student, classrooms }: EdtProps) => {
   const { toast } = useToast();
   const [isLoading, setIsLoading] = useState(false);
   const [showModal, setShowModal] = useState(false);
-  const [name, setName] = useState(student.name || "");
-  const [studentId, setStudent] = useState(student.userId || "");
-  const [classroom, setClassroom] = useState("");
+  const [name, setName] = useState(student.name || '');
+  const [studentId, setStudent] = useState(student.userId || '');
+  const [classroom, setClassroom] = useState('');
   const router = useRouter();
   const handleUpdate = async (e: SyntheticEvent) => {
     setIsLoading(true);
@@ -30,22 +30,18 @@ const Add = ({ student, classrooms }: EdtProps) => {
         studentId: studentId,
       });
       toast({
-        description: "Add successfully",
+        description: 'Add successfully',
       });
     } catch (error: any) {
-      let errorMessage = "An error occurred";
-      if (
-        error.response &&
-        error.response.data &&
-        error.response.data.message
-      ) {
+      let errorMessage = 'An error occurred';
+      if (error.response && error.response.data && error.response.data.message) {
         errorMessage = error.response.data.message;
       }
       toast({
-        variant: "destructive",
-        title: "Uh oh! Something went wrong.",
+        variant: 'destructive',
+        title: 'Uh oh! Something went wrong.',
         description: errorMessage,
-        className: "bg-red text-white",
+        className: 'bg-red text-white',
       });
     }
     setIsLoading(false);
@@ -54,11 +50,7 @@ const Add = ({ student, classrooms }: EdtProps) => {
   };
   return (
     <>
-      <button
-        className="btnAdd"
-        type="button"
-        onClick={() => setShowModal(true)}
-      >
+      <button className="btnAdd" type="button" onClick={() => setShowModal(true)}>
         Add
       </button>
       {showModal ? (
@@ -126,11 +118,7 @@ const Add = ({ student, classrooms }: EdtProps) => {
                 </div>
                 {/*footer*/}
                 <div className="flex items-center justify-end p-6 border-t border-solid border-blueGray-200 rounded-b">
-                  <button
-                    className="btnClose"
-                    type="button"
-                    onClick={() => setShowModal(false)}
-                  >
+                  <button className="btnClose" type="button" onClick={() => setShowModal(false)}>
                     Close
                   </button>
                   <button
@@ -139,7 +127,7 @@ const Add = ({ student, classrooms }: EdtProps) => {
                     onClick={handleUpdate}
                     disabled={isLoading}
                   >
-                    {isLoading ? "Loading..." : "Save Changes"}
+                    {isLoading ? 'Loading...' : 'Save Changes'}
                   </button>
                 </div>
               </div>

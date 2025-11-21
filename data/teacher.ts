@@ -1,6 +1,6 @@
-import { db } from "@/lib/db";
+import { db } from '@/lib/db';
 
-import { auth } from "@/auth";
+import { auth } from '@/auth';
 
 export const getSchedulebyTeacherId = async () => {
   const session = await auth();
@@ -51,7 +51,7 @@ export const getAssignmentbyTeacherId = async () => {
   }
 };
 export const getLessonbyTeacherId = async () => {
-  "use server";
+  'use server';
   const session = await auth();
   try {
     const res = await db.lessons.findMany({
@@ -65,7 +65,7 @@ export const getLessonbyTeacherId = async () => {
         cat: true,
       },
       orderBy: {
-        name: "asc",
+        name: 'asc',
       },
     });
 

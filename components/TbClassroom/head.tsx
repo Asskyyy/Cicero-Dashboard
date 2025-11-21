@@ -1,18 +1,18 @@
-import React from "react";
-import { Tablehd } from "@/types/table";
+import React from 'react';
+import { Tablehd } from '@/types/table';
 
 const tablehdDataClassroom: Tablehd[] = [
   {
-    name: "Classroom",
+    name: 'Classroom',
   },
   {
-    name: "Capacity",
+    name: 'Capacity',
   },
   {
-    name: "Total Student",
+    name: 'Total Student',
   },
   {
-    name: "Actions",
+    name: 'Actions',
   },
 ];
 export const TbheadClassroom = () => {
@@ -24,15 +24,15 @@ export const TbheadClassroom = () => {
             <th
               key={key}
               className={`font-medium text-white dark:text-white ${
-                tablehdItem.name === "Classroom"
-                  ? "min-w-[220px] px-4 py-4 xl:pl-11"
-                  : tablehdItem.name === "Capacity"
-                    ? "min-w-[150px] px-4 py-4"
-                    : tablehdItem.name === "Total Student"
-                      ? "min-w-[150px] px-4 py-4"
-                      : tablehdItem.name === "Actions"
-                        ? "px-20 py-4"
-                        : ""
+                tablehdItem.name === 'Classroom'
+                  ? 'min-w-[220px] px-4 py-4 xl:pl-11'
+                  : tablehdItem.name === 'Capacity'
+                    ? 'min-w-[150px] px-4 py-4'
+                    : tablehdItem.name === 'Total Student'
+                      ? 'min-w-[150px] px-4 py-4'
+                      : tablehdItem.name === 'Actions'
+                        ? 'px-20 py-4'
+                        : ''
               }`}
             >
               {tablehdItem.name}

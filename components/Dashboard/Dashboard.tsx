@@ -1,9 +1,9 @@
-"use client";
-import React, { useState } from "react";
-import CardDataStats from "../CardDataStats";
+'use client';
+import React, { useState } from 'react';
+import CardDataStats from '../CardDataStats';
 
-import { RoleGate } from "@/components/auth/role-gate";
-import { UserRole } from "@prisma/client";
+import { RoleGate } from '@/components/auth/role-gate';
+import { UserRole } from '@prisma/client';
 
 interface DashboardProps {
   totalDataCard: {
@@ -36,12 +36,7 @@ const Dashboard: React.FC<DashboardProps> = ({ totalDataCard }) => {
             </svg>
           </CardDataStats>
         </RoleGate>
-        <CardDataStats
-          title="Total Lesson"
-          total={totalDataCard.totalLessons}
-          rate="4.35%"
-          levelUp
-        >
+        <CardDataStats title="Total Lesson" total={totalDataCard.totalLessons} rate="4.35%" levelUp>
           <svg
             className="fill-primary dark:fill-white"
             width="25"
