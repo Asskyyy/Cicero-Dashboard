@@ -11,29 +11,32 @@ export const fetchUsers = async ({
 }) => {
   'use server';
   try {
-    const results = await db.user.findMany({
-      where: {
-        name: { contains: query, mode: 'insensitive' },
-        NOT: {
-          role: 'ADMIN',
-        },
+    const baseWhere = {
+      name: query ? { contains: query, mode: 'insensitive' } : undefined,
+      NOT: {
+        role: 'ADMIN',
       },
-      relationLoadStrategy: 'join',
-      skip,
-      take,
-      select: {
-        id: true,
-        email: true,
-        role: true,
-        name: true,
-        status: true,
-      },
-      orderBy: {
-        name: 'asc',
-      },
-    });
+    };
 
-    const total = await db.user.count();
+    const [results, total] = await Promise.all([
+      db.user.findMany({
+        where: baseWhere,
+        relationLoadStrategy: 'join',
+        skip,
+        take,
+        select: {
+          id: true,
+          email: true,
+          role: true,
+          name: true,
+          status: true,
+        },
+        orderBy: {
+          name: 'asc',
+        },
+      }),
+      db.user.count({ where: baseWhere }),
+    ]);
 
     return {
       data: results,
