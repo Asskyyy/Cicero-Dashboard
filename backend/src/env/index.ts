@@ -7,6 +7,7 @@ const envSchema = z.object({
   DIRECT_URL: z.string().min(1, 'DIRECT_URL is required'),
   AUTH_SECRET: z.string().min(1, 'AUTH_SECRET is required'),
   NEXTAUTH_SECRET: z.string().min(1, 'NEXTAUTH_SECRET is required'),
+  NEXT_PUBLIC_APP_URL: z.string().optional(),
   RESEND_API_KEY: z.string().optional(),
 });
 

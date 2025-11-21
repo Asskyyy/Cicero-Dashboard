@@ -7,6 +7,7 @@
   "exports": {
     "./auth/*": "./src/auth/*",
     "./db": "./src/db",
+    "./env": "./src/env",
     "./services/*": "./src/services/*",
     "./schemas/*": "./src/schemas/*"
   },

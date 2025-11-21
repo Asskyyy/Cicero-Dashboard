@@ -1,6 +1,8 @@
 import { resend } from './resend';
 import { Email } from '@backend/email/Email';
-const domain = process.env.NEXT_PUBLIC_APP_URL;
+import { env } from '@backend/env';
+
+const domain = env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000';
 
 export const sendTwoFactorTokenEmail = async (email: string, token: string) => {
   await resend.emails.send({

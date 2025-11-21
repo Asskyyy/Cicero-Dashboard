@@ -80,15 +80,21 @@ export default {
     },
     async session({ token, session }) {
       if (session.user) {
-        if (token.sub) session.user.id = token.sub;
-        if (token.role) session.user.role = token.role as UserRole;
-        if (token.status) session.user.status = token.status as UserStatus;
+        const user = session.user as typeof session.user & {
+          role?: UserRole;
+          status?: UserStatus;
+          isTwoFactorEnabled?: boolean;
+          isOAuth?: boolean;
+        };
+        if (token.sub) user.id = token.sub;
+        if (token.role) user.role = token.role as UserRole;
+        if (token.status) user.status = token.status as UserStatus;
         if (typeof token.isTwoFactorEnabled !== 'undefined') {
-          session.user.isTwoFactorEnabled = Boolean(token.isTwoFactorEnabled);
+          user.isTwoFactorEnabled = Boolean(token.isTwoFactorEnabled);
         }
-        if (token.name) session.user.name = token.name;
-        if (token.email) session.user.email = token.email;
-        session.user.isOAuth = Boolean(token.isOAuth);
+        if (token.name) user.name = token.name;
+        if (token.email) user.email = token.email;
+        user.isOAuth = Boolean(token.isOAuth);
       }
 
       return session;
