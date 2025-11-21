@@ -1,7 +1,6 @@
 import { Button } from '@/components/ui/button';
 import { LoginButton } from '@/components/auth/login-button';
 import { lusitana } from '@/components/ui/fonts';
-import { ImagesSliderDemo } from '@/components/image-slider/Demo';
 export default function Home() {
   return (
     <main className="flex min-h-screen flex-col p-6 bg-black bg-grid-small-white/[0.2] overflow-hidden">
@@ -19,7 +18,6 @@ export default function Home() {
             </LoginButton>
           </div>
         </div>
-        <ImagesSliderDemo />
       </div>
     </main>
   );

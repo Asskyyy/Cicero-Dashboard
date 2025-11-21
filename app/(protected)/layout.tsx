@@ -1,5 +1,5 @@
 'use client';
-import React, { useState } from 'react';
+import React, { Suspense, useState } from 'react';
 import Sidebar from '@/components/Sidebar';
 import Header from '@/components/Header';
 import { Toaster } from '@/components/ui/toaster';
@@ -26,7 +26,15 @@ const ProtectedLayout = ({ children }: ProtectedLayoutProps) => {
           {/* <!-- ===== Main Content Start ===== --> */}
           <main>
             <div className="mx-auto max-w-screen-2xl p-4 md:p-6 2xl:p-10">
-              {children}
+              <Suspense
+                fallback={
+                  <div className="flex h-64 w-full items-center justify-center text-sm text-gray-500">
+                    Loading content...
+                  </div>
+                }
+              >
+                {children}
+              </Suspense>
               <Toaster />
             </div>
           </main>

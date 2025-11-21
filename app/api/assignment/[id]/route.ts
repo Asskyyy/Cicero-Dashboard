@@ -11,13 +11,14 @@ const AssingmentSchema = z.object({
 });
 const prisma = new PrismaClient();
 
-export const PATCH = async (request: Request, { params }: { params: { id: string } }) => {
+export const PATCH = async (request: Request, { params }: { params: Promise<{ id: string }> }) => {
   try {
+    const { id } = await params;
     const body: Assignments = await request.json();
     const validatedData = AssingmentSchema.parse(body);
     const Editassignment = await prisma.assignments.update({
       where: {
-        id: String(params.id),
+        id: String(id),
       },
       data: {
         task: validatedData.task,
@@ -43,10 +44,11 @@ export const PATCH = async (request: Request, { params }: { params: { id: string
   }
 };
 
-export const DELETE = async (request: Request, { params }: { params: { id: string } }) => {
+export const DELETE = async (request: Request, { params }: { params: Promise<{ id: string }> }) => {
+  const { id } = await params;
   const lesson = await prisma.assignments.delete({
     where: {
-      id: String(params.id),
+      id: String(id),
     },
   });
 

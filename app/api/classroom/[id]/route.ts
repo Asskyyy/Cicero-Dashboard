@@ -10,13 +10,14 @@ const ClassroomSchema = z.object({
 
 const prisma = new PrismaClient();
 
-export const PATCH = async (request: Request, { params }: { params: { id: string } }) => {
+export const PATCH = async (request: Request, { params }: { params: Promise<{ id: string }> }) => {
   try {
+    const { id } = await params;
     const body: Classrooms = await request.json();
     const validatedData = ClassroomSchema.parse(body);
     const Editclassroom = await prisma.classrooms.update({
       where: {
-        id: String(params.id),
+        id: String(id),
       },
       data: {
         name: validatedData.name,
@@ -38,10 +39,11 @@ export const PATCH = async (request: Request, { params }: { params: { id: string
   }
 };
 
-export const DELETE = async (request: Request, { params }: { params: { id: string } }) => {
+export const DELETE = async (request: Request, { params }: { params: Promise<{ id: string }> }) => {
+  const { id } = await params;
   const classroom = await prisma.classrooms.delete({
     where: {
-      id: String(params.id),
+      id: String(id),
     },
   });
 

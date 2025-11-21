@@ -10,13 +10,14 @@ const ScheduleSchema = z.object({
 });
 const prisma = new PrismaClient();
 
-export const PATCH = async (request: Request, { params }: { params: { id: string } }) => {
+export const PATCH = async (request: Request, { params }: { params: Promise<{ id: string }> }) => {
   try {
+    const { id } = await params;
     const body: Schedule = await request.json();
     const validatedData = ScheduleSchema.parse(body);
     const EditSchedule = await prisma.schedule.update({
       where: {
-        id: String(params.id),
+        id: String(id),
       },
       data: {
         day: new Date(validatedData.day),
@@ -40,10 +41,11 @@ export const PATCH = async (request: Request, { params }: { params: { id: string
   }
 };
 
-export const DELETE = async (request: Request, { params }: { params: { id: string } }) => {
+export const DELETE = async (request: Request, { params }: { params: Promise<{ id: string }> }) => {
+  const { id } = await params;
   const lesson = await prisma.schedule.delete({
     where: {
-      id: String(params.id),
+      id: String(id),
     },
   });
 

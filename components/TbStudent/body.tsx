@@ -7,7 +7,8 @@ import { getAllClassrooms } from '@/data/academy';
 export type FetcStudentsType = typeof fetchStudents;
 const TbodyStudent = async (props: PageProps) => {
   const [classrooms] = await Promise.all([getAllClassrooms()]);
-  const pageNumber = Number(props?.searchParams?.page || 1); // Get the page number. Default to 1 if not provided.
+  const searchParams = (await props.searchParams) ?? {};
+  const pageNumber = Number(searchParams.page ?? 1); // Get the page number. Default to 1 if not provided.
   const take = 5;
   const skip = (pageNumber - 1) * take;
   const { data, metadata } = await fetchStudents({ take, skip });
@@ -16,7 +17,7 @@ const TbodyStudent = async (props: PageProps) => {
     <>
       <tbody>
         {data.map((student) => (
-          <tr key={student.id}>
+          <tr key={student.id} data-testid="student-row">
             <td className="border-b border-[#eee] px-4 py-5 pl-9 dark:border-strokedark xl:pl-11">
               <h5 className="font-medium text-black dark:text-white">{student.name}</h5>
             </td>

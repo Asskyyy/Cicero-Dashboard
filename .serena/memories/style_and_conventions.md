@@ -1,6 +1,6 @@
 # Style and conventions
 
-- Language: TypeScript with `strict` + `strictNullChecks`, no emit. Use App Router patterns. Prefer typed objects/schemas (zod) and hook-form usage.
+- Language/runtime: Next 15 (App Router) with React 19; TypeScript with `strict` + `strictNullChecks`, no emit. Prefer typed objects/schemas (zod) and hook-form usage.
 - Lint/format: ESLint (`next`, `next/core-web-vitals`, `prettier`). Prettier expected; follow Next.js/React best practices, no custom ESLint rules defined.
 - Imports: path alias `@/*`; keep moduleResolution `bundler`. Keep tailwind classes consistent with defined palette; dark mode via `class` strategy.
 - Styling: TailwindCSS with extensive custom theme (Satoshi font, rich spacing, custom colors like `primary #3C50E0`, `secondary #80CAEE`, gray palette). Animations and utilities from tailwind-merge/tailwindcss-animate; Radix UI components used for primitives.
