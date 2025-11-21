@@ -65,6 +65,7 @@ export const SidebarItems = ({ item }: { item: SideNavItem }) => {
                   <Link
                     key={idx}
                     href={subItem.path}
+                    data-testid={`nav-${subItem.path.replace(/\//g, '-')}`}
                     className={`${navMenuDropdownItem} ${
                       subItem.path === pathname ? activeLink : ''
                     }`}
@@ -90,6 +91,7 @@ export const SidebarItems = ({ item }: { item: SideNavItem }) => {
       ) : (
         <Link
           href={item.path}
+          data-testid={`nav-${item.path.replace(/\//g, '-')}`}
           className={`${inactiveLink} ${item.path === pathname ? 'active' : ''}`}
         >
           <button
