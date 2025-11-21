@@ -323,3 +323,9 @@ This README covers:
 ✔ All major troubleshooting cases
 
 With this setup, you can now fully operate **Cicero Dashboard** locally and continue development smoothly.
+
+## Architecture guardrails
+
+- Frontend/client code must not import backend modules. Only server code (route handlers/server actions) in frontend may import from @backend/*.
+- Backend must not import frontend code.
+- Env variables are validated in backend via backend/src/env/index.ts; ensure frontend/.env and backend/.env are populated (see respective .env.example templates).

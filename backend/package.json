@@ -3,6 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
+  "main": "src/index.ts",
+  "exports": {
+    "./auth/*": "./src/auth/*",
+    "./db": "./src/db",
+    "./services/*": "./src/services/*",
+    "./schemas/*": "./src/schemas/*"
+  },
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "prisma:generate": "prisma generate --schema ./prisma/schema.prisma",
