@@ -13,7 +13,7 @@ const TbodyTeacher = async (props: PageProps) => {
     <>
       <tbody>
         {data.map((teacher) => (
-          <tr key={teacher.id}>
+          <tr key={teacher.id} data-testid="teacher-row">
             <td className="border-b border-[#eee] px-4 py-5 pl-9 dark:border-strokedark xl:pl-11">
               <h5 className="font-medium text-black dark:text-white">{teacher.name}</h5>
             </td>
