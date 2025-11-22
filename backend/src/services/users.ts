@@ -15,9 +15,10 @@ export const fetchUsers = async ({
   try {
     const baseWhere: Prisma.UserWhereInput = {
       name: query ? { contains: query, mode: Prisma.QueryMode.insensitive } : undefined,
-      NOT: {
-        role: UserRole.ADMIN,
-      },
+      //hided for development purpose
+      //NOT: {
+      //  role: UserRole.ADMIN,
+      //},
     };
 
     const [results, total] = await Promise.all([
