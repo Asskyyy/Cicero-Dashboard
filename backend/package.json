@@ -1,0 +1,37 @@
+{
+  "name": "backend",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "main": "src/index.ts",
+  "exports": {
+    "./auth/*": "./src/auth/*",
+    "./db": "./src/db",
+    "./env": "./src/env",
+    "./services/*": "./src/services/*",
+    "./schemas/*": "./src/schemas/*"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "prisma:generate": "prisma generate --schema ./prisma/schema.prisma",
+    "prisma:migrate": "prisma migrate dev --schema ./prisma/schema.prisma"
+  },
+  "dependencies": {
+    "@auth/prisma-adapter": "^1.0.12",
+    "@prisma/client": "^5.11.0",
+    "@react-email/components": "^1.0.1",
+    "bcryptjs": "^2.4.3",
+    "next-auth": "^5.0.0-beta.4",
+    "react": "^19.0.0",
+    "resend": "^2.1.0",
+    "uuid": "^9.0.1",
+    "zod": "^3.22.4"
+  },
+  "devDependencies": {
+    "@types/node": "^20",
+    "@types/react": "^19.0.0",
+    "@types/uuid": "^10.0.0",
+    "prisma": "^5.11.0",
+    "typescript": "^5"
+  }
+}
