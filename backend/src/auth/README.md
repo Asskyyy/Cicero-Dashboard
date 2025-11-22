@@ -5,3 +5,4 @@
 - `auth.config.edge.ts` mirrors config for middleware usage.
 - Token helpers generate verification/two-factor tokens; keep lifetimes consistent with UI expectations.
 - Keep auth logic centralized here to avoid duplicating role/status checks elsewhere.
+- Dev bypass: `SKIP_EMAIL_VERIFICATION` (default false) may be set in `.env`; only honored in development.

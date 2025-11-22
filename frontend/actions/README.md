@@ -6,3 +6,4 @@
 - Keep side effects (emails, tokens) here, but delegate DB work to backend services.
 - Use `@/*`/`@backend/*` aliases instead of deep relative imports.
 - Ensure actions remain stateless and idempotent where possible.
+- Dev bypass: `SKIP_EMAIL_VERIFICATION=true` (dev only) skips email verification in register/login flows.

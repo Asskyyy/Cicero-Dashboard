@@ -9,6 +9,10 @@ const envSchema = z.object({
   NEXTAUTH_SECRET: z.string().min(1, 'NEXTAUTH_SECRET is required'),
   NEXT_PUBLIC_APP_URL: z.string().optional(),
   RESEND_API_KEY: z.string().optional(),
+  SKIP_EMAIL_VERIFICATION: z.preprocess(
+    (val) => val === 'true',
+    z.boolean().default(false)
+  ),
 });
 
 const parsed = envSchema.safeParse(process.env);

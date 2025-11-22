@@ -9,6 +9,9 @@ import { getTwoFactorConfirmationByUserId } from '@backend/services/two-factor-c
 import { getAccountByUserId } from '@backend/services/account';
 import { UserStatus, UserRole } from '@prisma/client';
 import { PrismaAdapter } from '@auth/prisma-adapter';
+import { env } from '@backend/env';
+
+const skipEmailVerification = env.SKIP_EMAIL_VERIFICATION && process.env.NODE_ENV === 'development';
 
 export default {
   pages: {
@@ -63,7 +66,7 @@ export default {
       const existingUser = await getUserById(userId);
 
       // Prevent sign in without email verification
-      if (!existingUser?.emailVerified) return false;
+      if (!existingUser?.emailVerified && !skipEmailVerification) return false;
 
       if (existingUser.isTwoFactorEnabled) {
         // Require a fresh two-factor confirmation created in the login action before allowing session.
