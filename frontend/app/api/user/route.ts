@@ -3,6 +3,7 @@ import { NextResponse } from 'next/server';
 import bcrypt from 'bcryptjs';
 import { z } from 'zod';
 
+// TODO: enforce auth/role guard and move to shared Prisma client to avoid connection churn.
 const UserSchema = z.object({
   email: z.string().email({ message: 'Invalid email address' }),
   name: z.string().min(3, { message: 'Name Min 3 Character' }),

@@ -66,6 +66,7 @@ export default {
       if (!existingUser?.emailVerified) return false;
 
       if (existingUser.isTwoFactorEnabled) {
+        // Require a fresh two-factor confirmation created in the login action before allowing session.
         const twoFactorConfirmation = await getTwoFactorConfirmationByUserId(existingUser.id);
 
         if (!twoFactorConfirmation) return false;
@@ -108,6 +109,7 @@ export default {
 
       const existingAccount = await getAccountByUserId(existingUser.id);
 
+      // Enrich JWT with authz fields so middleware and client hooks can gate UI.
       token.isOAuth = !!existingAccount;
       token.name = existingUser.name;
       token.email = existingUser.email;

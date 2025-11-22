@@ -9,6 +9,7 @@ const { auth } = NextAuth(authEdgeConfig);
 export default auth(async (req) => {
   const { nextUrl } = req;
   const isLoggedIn = !!req.auth;
+  // Order matters: handle auth redirects before role/status rewrites to avoid masking unauthenticated users.
   const isApiAuthRoute = nextUrl.pathname.startsWith(apiAuthPrefix);
   const isPublicRoute = publicRoutes.includes(nextUrl.pathname);
   const isAuthRoute = authRoutes.includes(nextUrl.pathname);

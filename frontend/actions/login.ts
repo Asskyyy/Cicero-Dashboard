@@ -54,6 +54,7 @@ export const login = async (values: z.infer<typeof LoginSchema>, callbackUrl?: s
         return { error: 'Code expired!' };
       }
 
+      // Once a valid code is used, clear old confirmations and mark this sign-in to satisfy auth callback.
       await db.twoFactorToken.delete({
         where: { id: twoFactorToken.id },
       });

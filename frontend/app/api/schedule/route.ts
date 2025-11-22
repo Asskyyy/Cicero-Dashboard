@@ -2,6 +2,7 @@ import { PrismaClient } from '@prisma/client';
 import { NextResponse } from 'next/server';
 import { z } from 'zod';
 
+// TODO: enforce auth/role guard and use shared Prisma client; add explicit time validation.
 const ScheduleSchema = z.object({
   classroom: z.string().min(4, { message: 'Select Classroom' }),
   lesson: z.string().min(3, { message: 'Lesson Name Min 3 Character' }),
