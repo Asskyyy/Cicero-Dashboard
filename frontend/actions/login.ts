@@ -12,6 +12,7 @@ import { sendVerificationEmail, sendTwoFactorTokenEmail } from '@backend/email/m
 import { AFTER_LOGIN_URL } from '@/routes';
 import { generateVerificationToken, generateTwoFactorToken } from '@backend/auth/tokens';
 import { getTwoFactorConfirmationByUserId } from '@backend/services/two-factor-confirmation';
+import { env } from '@backend/env';
 
 export const login = async (values: z.infer<typeof LoginSchema>, callbackUrl?: string | null) => {
   const validatedFields = LoginSchema.safeParse(values);
@@ -23,9 +24,18 @@ export const login = async (values: z.infer<typeof LoginSchema>, callbackUrl?: s
   const { email, password, code } = validatedFields.data;
 
   const existingUser = await getUserByEmail(email);
+  const skipVerification = env.SKIP_EMAIL_VERIFICATION && process.env.NODE_ENV === 'development';
 
   if (!existingUser || !existingUser.email || !existingUser.password) {
     return { error: 'Email does not exist!' };
+  }
+
+  if (skipVerification && !existingUser.emailVerified) {
+    await db.user.update({
+      where: { id: existingUser.id },
+      data: { emailVerified: new Date() },
+    });
+    existingUser.emailVerified = new Date();
   }
 
   if (!existingUser.emailVerified) {
@@ -54,6 +64,7 @@ export const login = async (values: z.infer<typeof LoginSchema>, callbackUrl?: s
         return { error: 'Code expired!' };
       }
 
+      // Once a valid code is used, clear old confirmations and mark this sign-in to satisfy auth callback.
       await db.twoFactorToken.delete({
         where: { id: twoFactorToken.id },
       });

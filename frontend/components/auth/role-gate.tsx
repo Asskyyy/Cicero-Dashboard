@@ -12,6 +12,7 @@ interface RoleGateProps {
 export const RoleGate = ({ children, allowedRole }: RoleGateProps) => {
   const role = useCurrentRole();
 
+  // TODO: broaden to accept multiple roles; currently gates on a single exact match.
   if (role !== allowedRole) {
     return null;
   }

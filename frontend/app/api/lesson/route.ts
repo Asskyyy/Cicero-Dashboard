@@ -2,6 +2,7 @@ import { PrismaClient, LessonCategory } from '@prisma/client';
 import { NextResponse } from 'next/server';
 import { z } from 'zod';
 
+// TODO: enforce auth/role guard and switch to shared Prisma client from @backend/db/db.
 const LessonSchema = z.object({
   teacher: z.string().min(4, { message: 'Select teacher' }),
   name: z.string().min(3, { message: 'Lesson Name Min 3 Character' }),

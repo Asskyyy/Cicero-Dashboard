@@ -2,6 +2,7 @@ import { PrismaClient } from '@prisma/client';
 import { NextResponse } from 'next/server';
 import { z } from 'zod';
 
+// TODO: enforce auth/role guard and use shared Prisma client instead of instantiating per request.
 const ClassroomSchema = z.object({
   name: z.string().min(4, { message: 'Classroom Name Min 4 Character' }),
   cap: z.string().min(2, { message: 'Capacity More Than 10' }),

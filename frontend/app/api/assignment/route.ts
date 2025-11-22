@@ -1,6 +1,7 @@
 import { PrismaClient } from '@prisma/client';
 import { NextResponse } from 'next/server';
 import { z } from 'zod';
+// TODO: enforce auth/role guard and use shared Prisma client; validate time/file payloads explicitly.
 const AssingmentSchema = z.object({
   createBy: z.string().min(4, { message: 'Select Teacher' }),
   task: z.string().min(4, { message: 'Task Name Min 4 Character' }),
